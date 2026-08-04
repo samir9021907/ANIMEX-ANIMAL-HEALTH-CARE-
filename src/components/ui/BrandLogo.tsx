@@ -12,18 +12,18 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
   showSubtitle = true
 }) => {
   const logoHeights = {
-    sm: 'h-8',
-    md: 'h-11 md:h-14',
-    lg: 'h-16 md:h-20'
+    sm: 'h-9',
+    md: 'h-12 md:h-16',
+    lg: 'h-20 md:h-24'
   };
 
   return (
     <div className={`flex items-center gap-3 select-none ${className}`}>
-      {/* Official Uploaded ANIMEX High-Res Logo Image */}
+      {/* Official ANIMEX Logo Image */}
       <img
-        src="/images/logo.png"
+        src="/images/logo image.jpg"
         alt="ANIMEX ANIMAL HEALTHCARE PRIVATE LIMITED Logo"
-        className={`${logoHeights[size]} w-auto object-contain drop-shadow-md hover:scale-105 transition-transform`}
+        className={`${logoHeights[size]} w-auto object-contain drop-shadow-md hover:scale-105 transition-transform rounded-xl`}
       />
     </div>
   );
