@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    restart: always
+    depends_on:
+      - api
+      - db
+      - redis
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run server
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - DATABASE_URL=postgresql://animex_user:animex_password@db:5432/animex_db?schema=public
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=animex_super_secret_jwt_key_2026_production
+    restart: always
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15-alpine
+    container_name: animex_postgres
+    environment:
+      POSTGRES_USER: animex_user
+      POSTGRES_PASSWORD: animex_password
+      POSTGRES_DB: animex_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:7-alpine
+    container_name: animex_redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+volumes:
+  postgres_data:

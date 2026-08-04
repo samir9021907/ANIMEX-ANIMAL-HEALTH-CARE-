@@ -1,0 +1,258 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum RoleType {
+  SUPER_ADMIN
+  ADMIN
+  CONTENT_MANAGER
+  DEALER
+  USER
+}
+
+enum AnimalType {
+  COW
+  BUFFALO
+  GOAT
+  SHEEP
+  POULTRY
+  HORSE
+  CAMEL
+  PIG
+  PET
+}
+
+enum InquiryStatus {
+  PENDING
+  IN_PROGRESS
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  phone     String?
+  password  String
+  role      RoleType @default(USER)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  dealer    Dealer?
+  logs      ActivityLog[]
+}
+
+model Role {
+  id          String       @id @default(uuid())
+  name        String       @unique
+  description String?
+  permissions Permission[]
+}
+
+model Permission {
+  id          String   @id @default(uuid())
+  action      String
+  resource    String
+  roles       Role[]
+}
+
+model ProductCategory {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  image       String?
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id              String            @id @default(uuid())
+  title           String
+  slug            String            @unique
+  sku             String            @unique
+  summary         String
+  description     String
+  categoryId      String
+  category        ProductCategory   @relation(fields: [categoryId], references: [id])
+  targetAnimals   AnimalType[]
+  isFeatured      Boolean           @default(false)
+  isBestSeller    Boolean           @default(false)
+  brochurePdfUrl  String?
+  images          ProductImage[]
+  variants        ProductVariant[]
+  benefits        ProductBenefit[]
+  ingredients     ProductIngredient[]
+  diseaseProducts DiseaseProduct[]
+  enquiries       Enquiry[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model ProductImage {
+  id        String   @id @default(uuid())
+  url       String
+  isPrimary Boolean  @default(false)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductVariant {
+  id        String   @id @default(uuid())
+  packSize  String   // e.g. 1 Litre, 5 Litre, 1 Kg, 20 Kg
+  mrp       Float?
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductBenefit {
+  id        String   @id @default(uuid())
+  benefit   String
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model ProductIngredient {
+  id          String   @id @default(uuid())
+  name        String
+  quantity    String
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Disease {
+  id              String           @id @default(uuid())
+  name            String           @unique
+  slug            String           @unique
+  summary         String
+  symptoms        String
+  category        String
+  targetAnimals   AnimalType[]
+  diseaseProducts DiseaseProduct[]
+  createdAt       DateTime         @default(now())
+}
+
+model DiseaseProduct {
+  id        String   @id @default(uuid())
+  diseaseId String
+  productId String
+  disease   Disease  @relation(fields: [diseaseId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([diseaseId, productId])
+}
+
+model Dealer {
+  id           String        @id @default(uuid())
+  userId       String?       @unique
+  user         User?         @relation(fields: [userId], references: [id])
+  firmName     String
+  contactName  String
+  phone        String
+  email        String
+  gstNo        String?
+  address      String
+  district     String
+  state        String
+  pincode      String
+  latitude     Float?
+  longitude    Float?
+  status       InquiryStatus @default(PENDING)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Blog {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  coverImage  String
+  category    String
+  author      String   @default("Animex Health Experts")
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Certificate {
+  id          String   @id @default(uuid())
+  title       String
+  issuedBy    String
+  imageUrl    String
+  pdfUrl      String?
+  displayOrder Int     @default(0)
+}
+
+model Gallery {
+  id          String   @id @default(uuid())
+  title       String
+  category    String   // Manufacturing, Research, Events, Products
+  imageUrl    String
+  createdAt   DateTime @default(now())
+}
+
+model Testimonial {
+  id          String   @id @default(uuid())
+  farmerName  String
+  location    String
+  animalType  String
+  comment     String
+  rating      Int      @default(5)
+  avatarUrl   String?
+  createdAt   DateTime @default(now())
+}
+
+model FAQ {
+  id        String   @id @default(uuid())
+  question  String
+  answer    String
+  category  String   @default("General")
+}
+
+model Enquiry {
+  id        String        @id @default(uuid())
+  name      String
+  phone     String
+  email     String?
+  district  String?
+  state     String?
+  message   String
+  productId String?
+  product   Product?      @relation(fields: [productId], references: [id])
+  status    InquiryStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+}
+
+model Newsletter {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  details   String
+  ipAddress String?
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String
+  group     String   @default("general")
+}
