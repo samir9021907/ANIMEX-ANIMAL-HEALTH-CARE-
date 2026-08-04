@@ -1,5 +1,5 @@
 // Centralized API configuration supporting both Localhost & Production Render Backend
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+export const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || 'http://localhost:5000/api';
 
 export const fetchProducts = async () => {
   try {
