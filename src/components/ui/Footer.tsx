@@ -25,6 +25,9 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
     e.preventDefault();
     if (newsletterEmail) {
       setSubscribed(true);
+      const waMsg = `Hello ANIMEX Health Care,\n\nPlease subscribe my email for veterinary updates & product news:\n✉️ Email: ${newsletterEmail}`;
+      const waUrl = `https://wa.me/918999323908?text=${encodeURIComponent(waMsg)}`;
+      window.open(waUrl, '_blank');
       setNewsletterEmail('');
       setTimeout(() => setSubscribed(false), 5000);
     }
