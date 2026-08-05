@@ -32,6 +32,7 @@ interface HomePageProps {
   testimonials: Testimonial[];
   blogs: Blog[];
   setActiveTab: (tab: string) => void;
+  setSelectedCategory: (cat: string) => void;
   setSelectedAnimal: (animal: string) => void;
   setSelectedDisease: (disease: string) => void;
   onOpenProductModal: (product: Product) => void;
@@ -44,6 +45,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   testimonials,
   blogs,
   setActiveTab,
+  setSelectedCategory,
   setSelectedAnimal,
   setSelectedDisease,
   onOpenProductModal
@@ -326,6 +328,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div
               key={cat.id}
               onClick={() => {
+                setSelectedCategory(cat.name);
                 setActiveTab('products');
               }}
               className="glass-card p-6 rounded-3xl cursor-pointer group hover:bg-gradient-to-br hover:from-white hover:to-animex-blue-50/50 dark:hover:from-slate-900 dark:hover:to-slate-800 transition-all border border-slate-200/80 dark:border-slate-800"
@@ -668,7 +671,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               Apply for Dealership
             </button>
             <a
-              href="tel:18001234567"
+              href="tel:8999323908"
               className="bg-animex-orange-500 hover:bg-animex-orange-600 text-white font-black px-5 py-3.5 rounded-2xl text-xs uppercase tracking-wider flex items-center gap-2 transition-all"
             >
               <PhoneCall className="w-4 h-4" />

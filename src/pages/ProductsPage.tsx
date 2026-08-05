@@ -23,6 +23,8 @@ interface ProductsPageProps {
   products: Product[];
   categories: Category[];
   diseases: Disease[];
+  selectedCategory: string;
+  setSelectedCategory: (cat: string) => void;
   selectedAnimal: string;
   setSelectedAnimal: (animal: string) => void;
   selectedDisease: string;
@@ -34,6 +36,8 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
   products,
   categories,
   diseases,
+  selectedCategory,
+  setSelectedCategory,
   selectedAnimal,
   setSelectedAnimal,
   selectedDisease,
@@ -42,7 +46,6 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 }) => {
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState<'featured' | 'title' | 'bestseller'>('featured');
   const [wishlist, setWishlist] = useState<string[]>([]);

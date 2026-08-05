@@ -26,6 +26,7 @@ export const App: React.FC = () => {
   ]);
 
   // Selected filters across pages
+  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [selectedAnimal, setSelectedAnimal] = useState<string>('ALL');
   const [selectedDisease, setSelectedDisease] = useState<string>('ALL');
   
@@ -117,6 +118,7 @@ export const App: React.FC = () => {
               testimonials={TESTIMONIALS as any}
               blogs={BLOGS as any}
               setActiveTab={setActiveTab}
+              setSelectedCategory={setSelectedCategory}
               setSelectedAnimal={setSelectedAnimal}
               setSelectedDisease={setSelectedDisease}
               onOpenProductModal={(p) => setActiveModalProduct(p)}
@@ -128,6 +130,8 @@ export const App: React.FC = () => {
               products={productsList}
               categories={CATEGORIES as any}
               diseases={DISEASES as any}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
               selectedAnimal={selectedAnimal}
               setSelectedAnimal={setSelectedAnimal}
               selectedDisease={selectedDisease}
