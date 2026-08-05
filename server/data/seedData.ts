@@ -353,6 +353,26 @@ export const BLOGS: SeedBlog[] = [
     coverImage: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&w=800&q=80',
     category: 'Calcium & Lactation',
     date: '2026-08-02'
+  },
+  {
+    id: 'blog-2',
+    title: 'Maximizing Milk Fat & SNF Percentage with MILKYMEX-DS Chelated Minerals',
+    slug: 'maximize-milk-fat-snf-milkymex-ds',
+    excerpt: 'How organic chelated trace minerals (Copper, Zinc, Cobalt) and Shatavari galactagogues boost daily milk fat %, SNF, and peak lactation curve.',
+    content: 'Balanced nutrition is essential for peak daily milk fat and SNF yield. Standard inorganic mineral salts have low bio-absorption... MILKYMEX-DS contains amino-acid chelated minerals...',
+    coverImage: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80',
+    category: 'Nutrition & Milk Fat',
+    date: '2026-08-04'
+  },
+  {
+    id: 'blog-3',
+    title: 'Managing Bloating, Indigestion & Seasonal Anorexia with RUMEN MEX',
+    slug: 'managing-bloating-indigestion-rumen-mex',
+    excerpt: 'Rumen acidosis and sluggish microflora cause severe appetite reduction in high-yield dairy cows and buffaloes. Discover herbal bio-buffer therapy.',
+    content: 'Sudden feed changes and high-concentrate diet often lead to rumen bloat and anorexia. RUMEN MEX delivers active Lactobacillus strains, Ajwain, and Ginger extracts...',
+    coverImage: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=800&q=80',
+    category: 'Gut & Rumen Health',
+    date: '2026-08-05'
   }
 ];
 
@@ -369,6 +389,22 @@ export const TESTIMONIALS = [
     location: 'Kopargaon, Maharashtra',
     animalType: 'Dairy Farmer (25 Buffaloes)',
     comment: 'CALCIMEX GEL ADVANCE दिला आणि ५ तासात म्हैस उभी राहिली! Milk fat सुध्दा ६.५% वरून ७.४% झाला. खूप भारी प्रॉडक्ट आहे.',
+    rating: 5
+  },
+  {
+    id: 'tst-2',
+    farmerName: 'Balasaheb Patil',
+    location: 'Sangamner, Maharashtra',
+    animalType: 'Dairy Farm Owner (40 Cows)',
+    comment: 'MILKYMEX-DS पावडर रोज ५० ग्रॅम दिल्यापासून गाईंच्या दुधात दररोज १.५ ते २ लिटर वाढ झाली आहे आणि फर्टिलिटी सुध्दा एकदम मस्त आहे.',
+    rating: 5
+  },
+  {
+    id: 'tst-3',
+    farmerName: 'Sachin Deshmukh',
+    location: 'Kolhapur, Maharashtra',
+    animalType: 'Goat & Sheep Breeder (80 Goats)',
+    comment: 'ANIMEX LIV लिव्हर टॉनिक आणि RUMEN MEX मुळे शेळ्यांची भूक वाढली आणि पचन एकदम चांगले राहते. वजन झपाट्याने वाढते.',
     rating: 5
   }
 ];
