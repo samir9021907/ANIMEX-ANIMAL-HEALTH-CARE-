@@ -18,7 +18,8 @@ import {
   Layers,
   FileSpreadsheet,
   Settings,
-  Activity
+  Activity,
+  Mail
 } from 'lucide-react';
 
 interface AdminDashboardProps {
@@ -424,37 +425,119 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
       )}
 
-      {/* 4. ENQUIRIES TAB */}
+      {/* 4. ENQUIRIES & NEWSLETTER SUBSCRIBERS TAB */}
       {activeTab === 'enquiries' && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-500 uppercase font-extrabold border-b border-slate-200 dark:border-slate-800">
-                <tr>
-                  <th className="p-4">Customer</th>
-                  <th className="p-4">Phone</th>
-                  <th className="p-4">Inquiry Message</th>
-                  <th className="p-4">Date</th>
-                  <th className="p-4">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                {enquiries.map((enq) => (
-                  <tr key={enq.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                    <td className="p-4 font-bold text-slate-900 dark:text-white">{enq.name}</td>
-                    <td className="p-4 font-mono font-semibold text-animex-orange-500">{enq.phone}</td>
-                    <td className="p-4 max-w-md text-slate-600 dark:text-slate-300">{enq.message}</td>
-                    <td className="p-4 font-semibold text-slate-400">{enq.createdAt}</td>
-                    <td className="p-4">
-                      <span className="bg-blue-500/20 text-blue-500 text-[10px] font-black uppercase px-2.5 py-1 rounded-full">
-                        {enq.status}
-                      </span>
-                    </td>
+        <div className="space-y-8">
+          
+          {/* Customer Product Enquiries Table */}
+          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm space-y-4 p-6">
+            <div>
+              <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                <MessageSquare className="w-5 h-5 text-animex-blue-600" />
+                <span>Customer Product Enquiries & Direct Messages</span>
+              </h3>
+              <p className="text-xs text-slate-500">Inquiries submitted via Product Modals & Contact Form</p>
+            </div>
+
+            <div className="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-2xl">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-500 uppercase font-extrabold border-b border-slate-200 dark:border-slate-800">
+                  <tr>
+                    <th className="p-4">Customer</th>
+                    <th className="p-4">Phone</th>
+                    <th className="p-4">Inquiry Message</th>
+                    <th className="p-4">Date</th>
+                    <th className="p-4">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  {enquiries.map((enq) => (
+                    <tr key={enq.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                      <td className="p-4 font-bold text-slate-900 dark:text-white">{enq.name}</td>
+                      <td className="p-4 font-mono font-semibold text-animex-orange-500">{enq.phone}</td>
+                      <td className="p-4 max-w-md text-slate-600 dark:text-slate-300">{enq.message}</td>
+                      <td className="p-4 font-semibold text-slate-400">{enq.createdAt}</td>
+                      <td className="p-4">
+                        <span className="bg-blue-500/20 text-blue-500 text-[10px] font-black uppercase px-2.5 py-1 rounded-full">
+                          {enq.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
+
+          {/* Footer Newsletter Email Subscribers Table */}
+          {(() => {
+            let subscribers: { email: string; date: string }[] = [];
+            try {
+              subscribers = JSON.parse(localStorage.getItem('animex_newsletter_subscribers') || '[]');
+            } catch (err) {
+              subscribers = [];
+            }
+
+            // Seed default subscribers for demonstration
+            const defaultSubscribers = [
+              { email: 'kopargaon.vet.store@gmail.com', date: '05-08-2026' },
+              { email: 'mahalaxmi.dairy.farm@gmail.com', date: '04-08-2026' }
+            ];
+
+            const allSubscribers = [...subscribers, ...defaultSubscribers];
+
+            return (
+              <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                      <Mail className="w-5 h-5 text-animex-orange-500" />
+                      <span>Footer Newsletter Email Subscribers ({allSubscribers.length})</span>
+                    </h3>
+                    <p className="text-xs text-slate-500">Emails submitted by users in the website footer "Enter email address..." box</p>
+                  </div>
+                  <span className="text-xs font-bold text-emerald-600 bg-emerald-100 dark:bg-emerald-950 px-3 py-1 rounded-full">
+                    Active Subscriber List
+                  </span>
+                </div>
+
+                <div className="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-2xl">
+                  <table className="w-full text-left text-xs">
+                    <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-500 uppercase font-extrabold border-b border-slate-200 dark:border-slate-800">
+                      <tr>
+                        <th className="p-4">Subscribed Email Address</th>
+                        <th className="p-4">Submission Date</th>
+                        <th className="p-4">Source</th>
+                        <th className="p-4 text-right">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {allSubscribers.map((sub, idx) => (
+                        <tr key={idx} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                          <td className="p-4 font-mono font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <Mail className="w-3.5 h-3.5 text-animex-orange-500 shrink-0" />
+                            <span>{sub.email}</span>
+                          </td>
+                          <td className="p-4 text-slate-400 font-semibold">{sub.date}</td>
+                          <td className="p-4">
+                            <span className="text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+                              Website Footer Box
+                            </span>
+                          </td>
+                          <td className="p-4 text-right">
+                            <span className="bg-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase px-2.5 py-1 rounded-full">
+                              SUBSCRIBED
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+          })()}
+
         </div>
       )}
 
