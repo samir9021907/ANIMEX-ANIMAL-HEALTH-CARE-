@@ -129,7 +129,41 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   };
 
   const exportToCSV = () => {
-    alert('Exporting full database (Products, Dealers, Enquiries) to CSV Excel spreadsheet...');
+    let csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "=== ANIMEX VETERINARY PRODUCTS ===\n";
+    csvContent += "ID,Title,SKU,Category,Summary\n";
+    products.forEach(p => {
+      csvContent += `"${p.id}","${p.title.replace(/"/g, '""')}","${p.sku}","${p.category}","${p.summary.replace(/"/g, '""')}"\n`;
+    });
+
+    csvContent += "\n=== DEALER APPLICATIONS ===\n";
+    csvContent += "ID,Firm Name,Contact Name,Phone,District,State,Status\n";
+    dealers.forEach(d => {
+      csvContent += `"${d.id}","${d.firmName.replace(/"/g, '""')}","${d.contactName}","${d.phone}","${d.district}","${d.state}","${d.status}"\n`;
+    });
+
+    csvContent += "\n=== CUSTOMER ENQUIRIES ===\n";
+    csvContent += "ID,Name,Phone,Message,Date\n";
+    enquiries.forEach(e => {
+      csvContent += `"${e.id}","${e.name}","${e.phone}","${e.message.replace(/"/g, '""')}","${e.createdAt}"\n`;
+    });
+
+    csvContent += "\n=== FOOTER NEWSLETTER SUBSCRIBERS ===\n";
+    csvContent += "Email,Submission Date\n";
+    try {
+      const subs = JSON.parse(localStorage.getItem('animex_newsletter_subscribers') || '[]');
+      subs.forEach((s: any) => {
+        csvContent += `"${s.email}","${s.date}"\n`;
+      });
+    } catch (err) {}
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `ANIMEX_EXECUTIVE_DATA_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   // LOGIN SCREEN
