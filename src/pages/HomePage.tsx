@@ -558,40 +558,70 @@ export const HomePage: React.FC<HomePageProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <div className="glass-card p-6 rounded-3xl space-y-3 border border-slate-200 dark:border-slate-800">
-            <div className="w-12 h-12 rounded-2xl bg-animex-orange-500/10 text-animex-orange-500 flex items-center justify-center">
+          <div
+            onClick={() => setActiveTab('contact')}
+            className="glass-card p-6 rounded-3xl space-y-3 border border-slate-200 dark:border-slate-800 cursor-pointer group hover:border-animex-orange-500 transition-all shadow-sm hover:shadow-md"
+            title="Click to view company certifications & manufacturing details"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-animex-orange-500/10 text-animex-orange-500 flex items-center justify-center group-hover:bg-animex-orange-500 group-hover:text-white transition-colors">
               <Factory className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-black text-slate-900 dark:text-white">
+            <h3 className="text-base font-black text-slate-900 dark:text-white group-hover:text-animex-orange-500 transition-colors">
               GMP Certified Automated Manufacturing
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Manufactured in state-of-the-art sterile liquid bottling and micro-powder blender plants ensuring zero cross-contamination.
             </p>
+            <div className="pt-2 text-xs font-bold text-animex-orange-500 flex items-center gap-1">
+              <span>View Certifications</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
           </div>
 
-          <div className="glass-card p-6 rounded-3xl space-y-3 border border-slate-200 dark:border-slate-800">
-            <div className="w-12 h-12 rounded-2xl bg-animex-green-500/10 text-animex-green-500 flex items-center justify-center">
+          <div
+            onClick={() => {
+              setSelectedCategory('Mineral Mixtures');
+              setActiveTab('products');
+            }}
+            className="glass-card p-6 rounded-3xl space-y-3 border border-slate-200 dark:border-slate-800 cursor-pointer group hover:border-animex-green-500 transition-all shadow-sm hover:shadow-md"
+            title="Click to explore Chelated Mineral Mixtures"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-animex-green-500/10 text-animex-green-500 flex items-center justify-center group-hover:bg-animex-green-500 group-hover:text-white transition-colors">
               <Microscope className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-black text-slate-900 dark:text-white">
+            <h3 className="text-base font-black text-slate-900 dark:text-white group-hover:text-animex-green-600 dark:group-hover:text-emerald-400 transition-colors">
               Organic Amino-Acid Chelation
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Our chelated trace minerals possess 3-4x higher intestinal absorption than standard inorganic salts, guaranteeing faster recovery.
             </p>
+            <div className="pt-2 text-xs font-bold text-animex-green-600 dark:text-emerald-400 flex items-center gap-1">
+              <span>Browse Chelated Range</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
           </div>
 
-          <div className="glass-card p-6 rounded-3xl space-y-3 border border-slate-200 dark:border-slate-800">
-            <div className="w-12 h-12 rounded-2xl bg-animex-blue-500/10 text-animex-blue-500 flex items-center justify-center">
+          <div
+            onClick={() => {
+              setSelectedCategory('Herbal Veterinary Products');
+              setActiveTab('products');
+            }}
+            className="glass-card p-6 rounded-3xl space-y-3 border border-slate-200 dark:border-slate-800 cursor-pointer group hover:border-animex-blue-500 transition-all shadow-sm hover:shadow-md"
+            title="Click to explore Herbal Veterinary Products"
+          >
+            <div className="w-12 h-12 rounded-2xl bg-animex-blue-500/10 text-animex-blue-500 flex items-center justify-center group-hover:bg-animex-blue-600 group-hover:text-white transition-colors">
               <Leaf className="w-6 h-6" />
             </div>
-            <h3 className="text-base font-black text-slate-900 dark:text-white">
+            <h3 className="text-base font-black text-slate-900 dark:text-white group-hover:text-animex-blue-600 dark:group-hover:text-sky-400 transition-colors">
               Zero Chemical & Antibiotic Residue
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               Formulated with standardized Shatavari, Jivanti, and Silymarin extracts ensuring milk and meat remain 100% safe for human consumption.
             </p>
+            <div className="pt-2 text-xs font-bold text-animex-blue-600 dark:text-sky-400 flex items-center gap-1">
+              <span>Explore Herbal Products</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </div>
           </div>
 
         </div>
