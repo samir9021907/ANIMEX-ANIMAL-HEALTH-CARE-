@@ -33,10 +33,24 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
   const handleInquirySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inquiryName && inquiryPhone) {
-      const messageText = `Hello ANIMEX Health Care,\n\nI want product inquiry / quote for:\n📦 Product: ${product.title}\n📏 Pack Size: ${currentPack}\n\n👤 Name: ${inquiryName}\n📞 Phone: ${inquiryPhone}`;
+      // Determine pricing estimates for automated quotation formatting
+      let mrp = 1450;
+      let rate = 1200;
+      if (product.id === 'prod-2') { mrp = 350; rate = 280; }
+      else if (product.id === 'prod-3') { mrp = 520; rate = 430; }
+      else if (product.id === 'prod-4') { mrp = 650; rate = 520; }
+      else if (product.id === 'prod-5') { mrp = 380; rate = 310; }
+
+      const savings = mrp - rate;
+      const discountPercent = Math.round((savings / mrp) * 100);
+      const quoteRefNo = `ANIMEX-QT-${Math.floor(10000 + Math.random() * 90000)}`;
+      const currentDateStr = new Date().toLocaleDateString('en-IN');
+
+      const messageText = `📄 ANIMEX OFFICIAL AUTOMATED QUOTATION\n-------------------------------------------\nRef No: ${quoteRefNo}\nDate: ${currentDateStr}\n\n📦 Product: ${product.title}\n📏 Pack Size: ${currentPack}\n🔢 Quantity: 1 Unit(s)\n🏷️ Standard MRP: ₹${mrp.toLocaleString('en-IN')} (₹${mrp.toLocaleString('en-IN')} / pack)\n🔥 Special Rate: ₹${rate.toLocaleString('en-IN')} (₹${rate.toLocaleString('en-IN')} / pack)\n💰 Total Savings: ₹${savings.toLocaleString('en-IN')} (${discountPercent}% OFF)\n🚚 Taxes: Inclusive of all GST taxes\n\n👤 Customer Name: ${inquiryName}\n📞 Phone: ${inquiryPhone}\n-------------------------------------------\nPlease confirm my order & share delivery date.`;
+
       const waUrl = `https://wa.me/919021590368?text=${encodeURIComponent(messageText)}`;
 
-      // Automatically launch WhatsApp with pre-filled inquiry details
+      // Automatically launch WhatsApp with pre-filled automated quotation details
       window.open(waUrl, '_blank');
 
       setSubmitted(true);
