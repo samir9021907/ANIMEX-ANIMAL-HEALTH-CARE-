@@ -245,39 +245,67 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section className="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
         <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200/80 dark:border-slate-800 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center divide-y lg:divide-y-0 lg:divide-x divide-slate-100 dark:divide-slate-800">
           
-          <div className="space-y-1">
-            <div className="text-3xl lg:text-4xl font-black text-animex-blue-600 dark:text-sky-400 font-sans">
+          <div
+            onClick={() => setActiveTab('products')}
+            className="space-y-1 cursor-pointer group hover:scale-105 transition-all p-2 rounded-2xl"
+            title="Click to view all 500+ products"
+          >
+            <div className="text-3xl lg:text-4xl font-black text-animex-blue-600 dark:text-sky-400 font-sans group-hover:text-animex-orange-500 transition-colors">
               500+
             </div>
-            <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+            <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider group-hover:text-slate-900 dark:group-hover:text-white">
               {t('formulationsCount')}
             </div>
+            <div className="text-[10px] font-extrabold text-animex-orange-500 opacity-0 group-hover:opacity-100 transition-opacity">
+              View Products →
+            </div>
           </div>
 
-          <div className="space-y-1 pt-4 lg:pt-0">
-            <div className="text-3xl lg:text-4xl font-black text-animex-orange-500 font-sans">
+          <div
+            onClick={() => setActiveTab('dealer-locator')}
+            className="space-y-1 pt-4 lg:pt-0 cursor-pointer group hover:scale-105 transition-all p-2 rounded-2xl"
+            title="Click to find authorized dealers"
+          >
+            <div className="text-3xl lg:text-4xl font-black text-animex-orange-500 font-sans group-hover:text-animex-blue-600 transition-colors">
               1,000+
             </div>
-            <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+            <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider group-hover:text-slate-900 dark:group-hover:text-white">
               {t('dealersNationwide')}
             </div>
+            <div className="text-[10px] font-extrabold text-animex-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">
+              Find Dealers →
+            </div>
           </div>
 
-          <div className="space-y-1 pt-4 lg:pt-0">
-            <div className="text-3xl lg:text-4xl font-black text-animex-green-600 dark:text-emerald-400 font-sans">
+          <div
+            onClick={() => setActiveTab('contact')}
+            className="space-y-1 pt-4 lg:pt-0 cursor-pointer group hover:scale-105 transition-all p-2 rounded-2xl"
+            title="Click to see farmer reviews & contact"
+          >
+            <div className="text-3xl lg:text-4xl font-black text-animex-green-600 dark:text-emerald-400 font-sans group-hover:text-animex-orange-500 transition-colors">
               10,000+
             </div>
-            <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+            <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider group-hover:text-slate-900 dark:group-hover:text-white">
               {t('farmersServed')}
+            </div>
+            <div className="text-[10px] font-extrabold text-animex-green-600 opacity-0 group-hover:opacity-100 transition-opacity">
+              Contact Us →
             </div>
           </div>
 
-          <div className="space-y-1 pt-4 lg:pt-0">
-            <div className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white font-sans">
+          <div
+            onClick={() => setActiveTab('products')}
+            className="space-y-1 pt-4 lg:pt-0 cursor-pointer group hover:scale-105 transition-all p-2 rounded-2xl"
+            title="Click to check quality formulations"
+          >
+            <div className="text-3xl lg:text-4xl font-black text-slate-900 dark:text-white font-sans group-hover:text-animex-blue-600 transition-colors">
               99.8%
             </div>
-            <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+            <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider group-hover:text-slate-900 dark:group-hover:text-white">
               {t('qualityAssurance')}
+            </div>
+            <div className="text-[10px] font-extrabold text-animex-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">
+              GMP Certified →
             </div>
           </div>
 
