@@ -128,51 +128,120 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
   const handleDownloadBrochure = (product: Product) => {
     setDownloadingPdf(product.id);
-    
-    // Construct full technical brochure document
-    let doc = `=================================================================\n`;
-    doc += `   ANIMEX ANIMAL HEALTH CARE PRIVATE LIMITED\n`;
-    doc += `   OFFICIAL PRODUCT TECHNICAL BROCHURE & SPECIFICATION SHEET\n`;
-    doc += `=================================================================\n\n`;
-    doc += `PRODUCT TITLE : ${product.title}\n`;
-    doc += `PRODUCT SKU   : ${product.sku}\n`;
-    doc += `CATEGORY      : ${product.category}\n`;
-    doc += `TARGET SPECIES: ${product.targetAnimals.join(', ')}\n`;
-    doc += `PACK SIZES    : ${product.variants.join(', ')}\n\n`;
-    doc += `-----------------------------------------------------------------\n`;
-    doc += `SUMMARY:\n${product.summary}\n\n`;
-    doc += `DETAILED DESCRIPTION:\n${product.description}\n\n`;
-    doc += `KEY CLINICAL BENEFITS:\n`;
-    product.benefits.forEach((b, idx) => {
-      doc += `  ${idx + 1}. ${b}\n`;
-    });
-    doc += `\nCOMPOSITION & INGREDIENTS:\n`;
-    product.ingredients.forEach((ing) => {
-      doc += `  - ${ing.name}: ${ing.quantity}\n`;
-    });
-    doc += `\nRECOMMENDED DOSAGE:\n${product.dosage}\n\n`;
-    doc += `-----------------------------------------------------------------\n`;
-    doc += `MANUFACTURER & DISTRIBUTOR CONTACT:\n`;
-    doc += `ANIMEX ANIMAL HEALTH CARE PRIVATE LIMITED\n`;
-    doc += `0208/RVN Bahadurpur, Kopargaon, Dist. Ahmednagar - 423605, Maharashtra\n`;
-    doc += `Helpline / WhatsApp: +91 8999323908 / 9307990811\n`;
-    doc += `Email: animexanimalhealthcare@gmail.com\n`;
-    doc += `Website: https://www.animexhealth.com\n`;
-    doc += `=================================================================\n`;
 
-    const blob = new Blob([doc], { type: 'text/plain;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `ANIMEX_BROCHURE_${product.sku}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    const printWin = window.open('', '_blank', 'width=900,height=1000');
+    if (!printWin) {
+      alert('Please allow popups in your browser to view and download/print the official PDF brochure.');
+      setDownloadingPdf(null);
+      return;
+    }
+
+    const imgUrl = product.image.startsWith('http') 
+      ? product.image 
+      : `${window.location.origin}${product.image}`;
+
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>ANIMEX Official Brochure - ${product.title}</title>
+          <style>
+            body { font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; margin: 0; padding: 28px; background: #fff; line-height: 1.5; }
+            .header { border-bottom: 3px solid #0F4C81; padding-bottom: 16px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+            .brand-title { color: #0F4C81; font-size: 24px; font-weight: 900; margin: 0; }
+            .brand-sub { color: #F97316; font-size: 13px; font-weight: 700; margin-top: 4px; }
+            .badge { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; padding: 6px 14px; font-size: 11px; font-weight: 800; border-radius: 20px; }
+            .grid { display: flex; gap: 24px; margin-bottom: 24px; }
+            .image-box { width: 220px; height: 220px; border-radius: 16px; border: 1px solid #cbd5e1; overflow: hidden; background: #f8fafc; display: flex; align-items: center; justify-content: center; flex-shrink: 0; p: 8px; }
+            .image-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+            .details { flex-grow: 1; }
+            .prod-title { font-size: 22px; font-weight: 900; color: #0F4C81; margin: 0 0 8px 0; }
+            .sku-tag { font-size: 11px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 3px 8px; border-radius: 6px; display: inline-block; margin-bottom: 12px; }
+            .summary { font-size: 13px; color: #334155; line-height: 1.6; margin-bottom: 16px; }
+            .section-title { font-size: 14px; font-weight: 800; color: #0F4C81; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; margin: 20px 0 12px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+            ul { margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.8; color: #334155; }
+            table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+            th { background: #0F4C81; color: white; text-align: left; padding: 8px 12px; }
+            td { border-bottom: 1px solid #e2e8f0; padding: 8px 12px; }
+            .dosage-box { background: #eff6ff; border-left: 4px solid #0284c7; padding: 12px 16px; border-radius: 8px; margin-top: 16px; font-size: 12px; color: #1e3a8a; }
+            .footer { border-top: 2px solid #e2e8f0; margin-top: 32px; padding-top: 16px; font-size: 11px; color: #64748b; text-align: center; line-height: 1.6; }
+            @media print {
+              body { padding: 0; }
+              .no-print { display: none; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <div>
+              <h1 class="brand-title">ANIMEX ANIMAL HEALTH CARE PVT. LTD.</h1>
+              <div class="brand-sub">GMP Certified Veterinary Formulations & Livestock Nutrition</div>
+            </div>
+            <div class="badge">ISO 9001:2015 & GMP CERTIFIED</div>
+          </div>
+
+          <div class="grid">
+            <div class="image-box">
+              <img src="${imgUrl}" alt="${product.title}" />
+            </div>
+            <div class="details">
+              <span class="sku-tag">SKU: ${product.sku} | CATEGORY: ${product.category}</span>
+              <h2 class="prod-title">${product.title}</h2>
+              <p class="summary">${product.description}</p>
+              <div style="font-size: 12px; font-weight: 700; color: #475569; line-height: 1.8;">
+                Target Livestock: <span style="color: #F97316;">${product.targetAnimals.join(', ')}</span><br/>
+                Available Pack Sizes: <span style="color: #0F4C81;">${product.variants.join(', ')}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title">✓ KEY CLINICAL BENEFITS & ADVANTAGES</div>
+          <ul>
+            ${product.benefits.map(b => `<li>${b}</li>`).join('')}
+          </ul>
+
+          <div class="section-title">🧪 COMPOSITION & INGREDIENTS</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Active Ingredient / Compound</th>
+                <th>Potency / Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${product.ingredients.map(ing => `<tr><td>${ing.name}</td><td><strong>${ing.quantity}</strong></td></tr>`).join('')}
+            </tbody>
+          </table>
+
+          <div class="section-title">📋 RECOMMENDED DOSAGE & ADMINISTRATION</div>
+          <div class="dosage-box">
+            <strong>Dosage Directions:</strong> ${product.dosage}
+          </div>
+
+          <div class="footer">
+            <strong>Manufactured for: ANIMEX ANIMAL HEALTH CARE PRIVATE LIMITED</strong><br/>
+            0208/RVN Bahadurpur, Kopargaon, Dist. Ahmednagar - 423605, Maharashtra, India<br/>
+            Helpline / WhatsApp: +91 8999323908 / 9307990811 | Email: animexanimalhealthcare@gmail.com
+          </div>
+
+          <script>
+            window.onload = function() {
+              setTimeout(function() {
+                window.print();
+              }, 400);
+            };
+          </script>
+        </body>
+      </html>
+    `;
+
+    printWin.document.open();
+    printWin.document.write(htmlContent);
+    printWin.document.close();
 
     setTimeout(() => {
       setDownloadingPdf(null);
-      setToastMessage(`✓ Official Product Brochure for "${product.title}" downloaded successfully!`);
+      setToastMessage(`✓ Official PDF Brochure for "${product.title}" opened! Save as PDF directly.`);
       setTimeout(() => setToastMessage(null), 4000);
     }, 600);
   };
