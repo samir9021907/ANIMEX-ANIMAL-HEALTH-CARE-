@@ -370,7 +370,7 @@ export const BLOGS: SeedBlog[] = [
     slug: 'managing-bloating-indigestion-rumen-mex',
     excerpt: 'Rumen acidosis and sluggish microflora cause severe appetite reduction in high-yield dairy cows and buffaloes. Discover herbal bio-buffer therapy.',
     content: 'Sudden feed changes and high-concentrate diet often lead to rumen bloat and anorexia. RUMEN MEX delivers active Lactobacillus strains, Ajwain, and Ginger extracts...',
-    coverImage: 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=800&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1596733430284-f7437764b1a9?auto=format&fit=crop&w=800&q=80',
     category: 'Gut & Rumen Health',
     date: '2026-08-05'
   }
