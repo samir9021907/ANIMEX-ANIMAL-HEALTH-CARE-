@@ -24,9 +24,17 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
   const handleNewsletter = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail) {
+      try {
+        const existing = JSON.parse(localStorage.getItem('animex_newsletter_subscribers') || '[]');
+        existing.push({ email: newsletterEmail, date: new Date().toLocaleDateString('en-IN') });
+        localStorage.setItem('animex_newsletter_subscribers', JSON.stringify(existing));
+      } catch (err) {
+        console.error(err);
+      }
+
       setSubscribed(true);
       setNewsletterEmail('');
-      setTimeout(() => setSubscribed(false), 5000);
+      setTimeout(() => setSubscribed(false), 6000);
     }
   };
 
@@ -142,12 +150,12 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
                 <Send className="w-3.5 h-3.5" />
               </button>
             </div>
-            {subscribed && (
-              <p className="text-[11px] text-animex-green-400 flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Subscribed successfully!</span>
-              </p>
-            )}
+            {subscribed ? (
+              <div className="bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 p-3 rounded-xl text-xs font-bold flex items-center gap-2 animate-in fade-in duration-200">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+                <span>✓ Subscribed successfully! (ANIMEX अपडेट्ससाठी ई-मेल नोंदवला गेला आहे)</span>
+              </div>
+            ) : null}
           </form>
 
           <div className="pt-2">
