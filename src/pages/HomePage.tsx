@@ -87,14 +87,14 @@ export const HomePage: React.FC<HomePageProps> = ({
   ];
 
   const animalsList = [
-    { id: 'COW', name: t('animalCOW'), image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=300&q=80', badge: 'High Milk' },
-    { id: 'BUFFALO', name: t('animalBUFFALO'), image: 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=300&q=80', badge: 'High Fat' },
-    { id: 'GOAT', name: t('animalGOAT'), image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=300&q=80', badge: 'Growth' },
-    { id: 'SHEEP', name: t('animalSHEEP'), image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=300&q=80', badge: 'Wool/Meat' },
-    { id: 'POULTRY', name: t('animalPOULTRY'), image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=300&q=80', badge: 'Layers/Broilers' },
-    { id: 'HORSE', name: t('animalHORSE'), image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=300&q=80', badge: 'Stamina' },
-    { id: 'CAMEL', name: t('animalCAMEL'), image: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=300&q=80', badge: 'Endurance' },
-    { id: 'PET', name: t('animalPET'), image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=300&q=80', badge: 'Pet Care' }
+    { id: 'COW', name: t('animalCOW'), image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=400&q=80', badge: 'High Milk' },
+    { id: 'BUFFALO', name: t('animalBUFFALO'), image: 'https://images.unsplash.com/photo-1596733430284-f7437764b1a9?auto=format&fit=crop&w=400&q=80', badge: 'High Fat' },
+    { id: 'GOAT', name: t('animalGOAT'), image: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&w=400&q=80', badge: 'Growth' },
+    { id: 'SHEEP', name: t('animalSHEEP'), image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=400&q=80', badge: 'Wool/Meat' },
+    { id: 'POULTRY', name: t('animalPOULTRY'), image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=400&q=80', badge: 'Layers/Broilers' },
+    { id: 'HORSE', name: t('animalHORSE'), image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=400&q=80', badge: 'Stamina' },
+    { id: 'CAMEL', name: t('animalCAMEL'), image: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=400&q=80', badge: 'Endurance' },
+    { id: 'PET', name: t('animalPET'), image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=400&q=80', badge: 'Pet Care' }
   ];
 
   return (
