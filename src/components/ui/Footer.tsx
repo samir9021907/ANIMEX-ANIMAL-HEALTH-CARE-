@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrandLogo } from './BrandLogo';
+import { useLanguage } from '../../context/LanguageContext';
 import { 
   Phone, 
   Mail, 
@@ -18,6 +19,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const { t } = useLanguage();
 
   const handleNewsletter = (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,15 +31,15 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
   };
 
   const speciesList = [
-    'Cow & Dairy Cattle',
-    'Buffalo',
-    'Goat & Kid Fattening',
-    'Sheep & Lamb',
-    'Poultry Layers & Broilers',
-    'Horse & Equine',
-    'Camel',
-    'Swine & Pig',
-    'Pet Animals (Dogs & Cats)'
+    t('animalCOW'),
+    t('animalBUFFALO'),
+    t('animalGOAT'),
+    t('animalSHEEP'),
+    t('animalPOULTRY'),
+    t('animalHORSE'),
+    t('animalCAMEL'),
+    t('animalPIG'),
+    t('animalPET')
   ];
 
   return (
@@ -49,7 +51,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
           <BrandLogo size="lg" className="text-white" />
           
           <p className="text-xs text-slate-400 leading-relaxed font-sans max-w-md">
-            <strong>ANIMEX ANIMAL HEALTH CARE PRIVATE LIMITED</strong> is a premier Indian manufacturer of advanced chelated mineral mixtures, high-potency calcium supplements, hepato-protective liver tonics, uterine cleansers, and gut health probiotics for livestock, poultry, and pets.
+            {t('footerAboutText')}
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -70,7 +72,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-animex-green-500 shrink-0" />
-              <span>Helpline: +91 9307990811 / 1800-123-4567</span>
+              <span>{t('tollFree')}: +91 9307990811 / 1800-123-4567</span>
             </div>
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-animex-blue-500 shrink-0" />
@@ -82,7 +84,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         {/* Product Categories */}
         <div className="space-y-3">
           <h4 className="text-sm font-extrabold uppercase tracking-wider text-white border-b border-animex-orange-500/40 pb-1.5 inline-block">
-            Core Products
+            {t('navProducts')}
           </h4>
           <ul className="space-y-2 text-xs">
             {['Calcium Supplements', 'Mineral Mixtures', 'Liver Tonics', 'Uterine Boosters', 'Gut Health & Probiotics', 'Poultry Vitamins', 'Goat Nutrition', 'Herbal Veterinary'].map((cat, idx) => (
@@ -102,7 +104,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         {/* Animal Species Covered */}
         <div className="space-y-3">
           <h4 className="text-sm font-extrabold uppercase tracking-wider text-white border-b border-animex-green-500/40 pb-1.5 inline-block">
-            Livestock Target
+            {t('categoriesTitle')}
           </h4>
           <ul className="space-y-2 text-xs text-slate-400">
             {speciesList.map((species, idx) => (
@@ -117,7 +119,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
         {/* Newsletter & Dealer Application Link */}
         <div className="space-y-4">
           <h4 className="text-sm font-extrabold uppercase tracking-wider text-white border-b border-animex-blue-500/40 pb-1.5 inline-block">
-            Dealer & Updates
+            {t('dealerTitle')}
           </h4>
           <p className="text-xs text-slate-400">
             Subscribe to veterinary health updates, seasonal livestock advice, and new product releases.
@@ -154,7 +156,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
               className="w-full bg-gradient-to-r from-animex-blue-600 to-animex-blue-700 hover:from-animex-blue-500 hover:to-animex-blue-600 text-white text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
             >
               <ShieldAlert className="w-4 h-4 text-animex-orange-400" />
-              <span>Become an Authorized Dealer</span>
+              <span>{t('becomeDealerTitle')}</span>
             </button>
           </div>
         </div>
@@ -163,16 +165,17 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab }) => {
       {/* Bottom Disclaimer & Copyright */}
       <div className="max-w-7xl mx-auto px-4 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
         <div>
-          © {new Date().getFullYear()} ANIMEX ANIMAL HEALTH CARE PRIVATE LIMITED. All Rights Reserved.
+          © {new Date().getFullYear()} {t('rightsReserved')}
         </div>
         <div className="flex gap-4">
           <a href="#privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</a>
           <span>•</span>
           <a href="#terms" className="hover:text-slate-300 transition-colors">Terms of Service</a>
           <span>•</span>
-          <button onClick={() => setActiveTab('admin')} className="hover:text-animex-orange-400 transition-colors">CMS Admin Login</button>
+          <button onClick={() => setActiveTab('admin')} className="hover:text-animex-orange-400 transition-colors">{t('cmsAdmin')}</button>
         </div>
       </div>
     </footer>
   );
 };
+

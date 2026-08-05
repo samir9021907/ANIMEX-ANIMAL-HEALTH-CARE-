@@ -9,6 +9,7 @@ import { BlogsPage } from './pages/BlogsPage';
 import { ContactPage } from './pages/ContactPage';
 import { AdminDashboard } from './pages/AdminDashboard';
 import { ProductDetailModal } from './components/ui/ProductDetailModal';
+import { LanguageProvider } from './context/LanguageContext';
 import { Product, Dealer, Enquiry } from './types';
 import { PRODUCTS, CATEGORIES, DISEASES, DEALERS, BLOGS, TESTIMONIALS, FAQS } from '../server/data/seedData';
 
@@ -95,107 +96,110 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans transition-colors duration-300">
-      
-      {/* Sticky Brand Header */}
-      <Header
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
-      />
+    <LanguageProvider>
+      <div className="min-h-screen flex flex-col font-sans transition-colors duration-300">
+        
+        {/* Sticky Brand Header */}
+        <Header
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+        />
 
-      {/* Main Content View Switcher */}
-      <main className="flex-grow">
-        {activeTab === 'home' && (
-          <HomePage
-            products={productsList}
-            categories={CATEGORIES as any}
-            diseases={DISEASES as any}
-            testimonials={TESTIMONIALS as any}
-            blogs={BLOGS as any}
-            setActiveTab={setActiveTab}
-            setSelectedAnimal={setSelectedAnimal}
-            setSelectedDisease={setSelectedDisease}
-            onOpenProductModal={(p) => setActiveModalProduct(p)}
-          />
-        )}
+        {/* Main Content View Switcher */}
+        <main className="flex-grow">
+          {activeTab === 'home' && (
+            <HomePage
+              products={productsList}
+              categories={CATEGORIES as any}
+              diseases={DISEASES as any}
+              testimonials={TESTIMONIALS as any}
+              blogs={BLOGS as any}
+              setActiveTab={setActiveTab}
+              setSelectedAnimal={setSelectedAnimal}
+              setSelectedDisease={setSelectedDisease}
+              onOpenProductModal={(p) => setActiveModalProduct(p)}
+            />
+          )}
 
-        {activeTab === 'products' && (
-          <ProductsPage
-            products={productsList}
-            categories={CATEGORIES as any}
-            diseases={DISEASES as any}
-            selectedAnimal={selectedAnimal}
-            setSelectedAnimal={setSelectedAnimal}
-            selectedDisease={selectedDisease}
-            setSelectedDisease={setSelectedDisease}
-            onOpenProductModal={(p) => setActiveModalProduct(p)}
-          />
-        )}
+          {activeTab === 'products' && (
+            <ProductsPage
+              products={productsList}
+              categories={CATEGORIES as any}
+              diseases={DISEASES as any}
+              selectedAnimal={selectedAnimal}
+              setSelectedAnimal={setSelectedAnimal}
+              selectedDisease={selectedDisease}
+              setSelectedDisease={setSelectedDisease}
+              onOpenProductModal={(p) => setActiveModalProduct(p)}
+            />
+          )}
 
-        {activeTab === 'disease-solutions' && (
-          <DiseaseSolutionsPage
-            diseases={DISEASES as any}
-            products={productsList}
-            setActiveTab={setActiveTab}
-            setSelectedDisease={setSelectedDisease}
-            onOpenProductModal={(p) => setActiveModalProduct(p)}
-          />
-        )}
+          {activeTab === 'disease-solutions' && (
+            <DiseaseSolutionsPage
+              diseases={DISEASES as any}
+              products={productsList}
+              setActiveTab={setActiveTab}
+              setSelectedDisease={setSelectedDisease}
+              onOpenProductModal={(p) => setActiveModalProduct(p)}
+            />
+          )}
 
-        {activeTab === 'dealer-locator' && (
-          <DealerLocatorPage
-            dealers={dealersList}
-            onRegisterDealer={handleRegisterDealer}
-          />
-        )}
+          {activeTab === 'dealer-locator' && (
+            <DealerLocatorPage
+              dealers={dealersList}
+              onRegisterDealer={handleRegisterDealer}
+            />
+          )}
 
-        {activeTab === 'blogs' && (
-          <BlogsPage
-            blogs={BLOGS as any}
-          />
-        )}
+          {activeTab === 'blogs' && (
+            <BlogsPage
+              blogs={BLOGS as any}
+            />
+          )}
 
-        {activeTab === 'contact' && (
-          <ContactPage
-            faqs={FAQS as any}
-            onSubmitEnquiry={handleSubmitEnquiry}
-          />
-        )}
+          {activeTab === 'contact' && (
+            <ContactPage
+              faqs={FAQS as any}
+              onSubmitEnquiry={handleSubmitEnquiry}
+            />
+          )}
 
-        {activeTab === 'admin' && (
-          <AdminDashboard
-            products={productsList}
-            dealers={dealersList}
-            enquiries={enquiriesList}
-            stats={{
-              totalProducts: productsList.length,
-              totalDealers: dealersList.length,
-              pendingDealers: dealersList.filter(d => d.status === 'PENDING').length,
-              totalEnquiries: enquiriesList.length,
-              pendingEnquiries: enquiriesList.filter(e => e.status === 'PENDING').length,
-              totalFarmersServed: '10,000+',
-              monthlyGrowthRate: '+24.5%'
-            }}
-            onAddProduct={handleAddProduct}
-            onUpdateProduct={handleUpdateProduct}
-            onDeleteProduct={handleDeleteProduct}
-            onApproveDealer={handleApproveDealer}
-            onRejectDealer={handleRejectDealer}
-          />
-        )}
-      </main>
+          {activeTab === 'admin' && (
+            <AdminDashboard
+              products={productsList}
+              dealers={dealersList}
+              enquiries={enquiriesList}
+              stats={{
+                totalProducts: productsList.length,
+                totalDealers: dealersList.length,
+                pendingDealers: dealersList.filter(d => d.status === 'PENDING').length,
+                totalEnquiries: enquiriesList.length,
+                pendingEnquiries: enquiriesList.filter(e => e.status === 'PENDING').length,
+                totalFarmersServed: '10,000+',
+                monthlyGrowthRate: '+24.5%'
+              }}
+              onAddProduct={handleAddProduct}
+              onUpdateProduct={handleUpdateProduct}
+              onDeleteProduct={handleDeleteProduct}
+              onApproveDealer={handleApproveDealer}
+              onRejectDealer={handleRejectDealer}
+            />
+          )}
+        </main>
 
-      {/* Global Product Specification Detail Modal */}
-      <ProductDetailModal
-        product={activeModalProduct}
-        onClose={() => setActiveModalProduct(null)}
-      />
+        {/* Global Product Specification Detail Modal */}
+        <ProductDetailModal
+          product={activeModalProduct}
+          onClose={() => setActiveModalProduct(null)}
+        />
 
-      {/* Corporate Brand Footer */}
-      <Footer setActiveTab={setActiveTab} />
+        {/* Corporate Brand Footer */}
+        <Footer setActiveTab={setActiveTab} />
 
-    </div>
+      </div>
+    </LanguageProvider>
   );
 };
+

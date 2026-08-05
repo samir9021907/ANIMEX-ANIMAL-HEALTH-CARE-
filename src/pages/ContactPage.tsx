@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FAQ } from '../types';
 import { COMPANY_DETAILS } from '../../server/data/seedData';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   Building2, 
   PhoneCall, 
@@ -22,6 +23,7 @@ interface ContactPageProps {
 }
 
 export const ContactPage: React.FC<ContactPageProps> = ({ faqs, onSubmitEnquiry }) => {
+  const { t } = useLanguage();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');

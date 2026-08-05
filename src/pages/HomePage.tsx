@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Product, Category, Disease, Testimonial, Blog } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   ShieldCheck, 
   Sparkles, 
@@ -48,6 +49,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   onOpenProductModal
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { t } = useLanguage();
 
   const heroSlides = [
     {
@@ -83,14 +85,14 @@ export const HomePage: React.FC<HomePageProps> = ({
   ];
 
   const animalsList = [
-    { id: 'COW', name: 'Cow', image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=300&q=80', badge: 'High Milk' },
-    { id: 'BUFFALO', name: 'Buffalo', image: 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=300&q=80', badge: 'High Fat' },
-    { id: 'GOAT', name: 'Goat', image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=300&q=80', badge: 'Growth' },
-    { id: 'SHEEP', name: 'Sheep', image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=300&q=80', badge: 'Wool/Meat' },
-    { id: 'POULTRY', name: 'Poultry', image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=300&q=80', badge: 'Layers/Broilers' },
-    { id: 'HORSE', name: 'Horse', image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=300&q=80', badge: 'Stamina' },
-    { id: 'CAMEL', name: 'Camel', image: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=300&q=80', badge: 'Endurance' },
-    { id: 'PET', name: 'Pet Animals', image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=300&q=80', badge: 'Pet Care' }
+    { id: 'COW', name: t('animalCOW'), image: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=300&q=80', badge: 'High Milk' },
+    { id: 'BUFFALO', name: t('animalBUFFALO'), image: 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=300&q=80', badge: 'High Fat' },
+    { id: 'GOAT', name: t('animalGOAT'), image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=300&q=80', badge: 'Growth' },
+    { id: 'SHEEP', name: t('animalSHEEP'), image: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=300&q=80', badge: 'Wool/Meat' },
+    { id: 'POULTRY', name: t('animalPOULTRY'), image: 'https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=300&q=80', badge: 'Layers/Broilers' },
+    { id: 'HORSE', name: t('animalHORSE'), image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=300&q=80', badge: 'Stamina' },
+    { id: 'CAMEL', name: t('animalCAMEL'), image: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=300&q=80', badge: 'Endurance' },
+    { id: 'PET', name: t('animalPET'), image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=300&q=80', badge: 'Pet Care' }
   ];
 
   return (
@@ -116,22 +118,22 @@ export const HomePage: React.FC<HomePageProps> = ({
             {/* Top pill badge */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-bold text-animex-orange-400">
               <Award className="w-4 h-4 text-animex-orange-400 animate-pulse" />
-              <span>{heroSlides[currentSlide].badge}</span>
+              <span>{t('heroBadge')}</span>
             </div>
 
             {/* Subtitle */}
             <h3 className="text-xs md:text-sm font-extrabold uppercase tracking-widest text-sky-400 font-sans">
-              {heroSlides[currentSlide].subtitle}
+              {t('heroTitlePrefix')}
             </h3>
 
             {/* Main Title */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-sans tracking-tight leading-tight text-white">
-              {heroSlides[currentSlide].title}
+              {t('heroTitleHighlight')}
             </h1>
 
             {/* Description */}
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-              {heroSlides[currentSlide].description}
+              {t('heroSubtext')}
             </p>
 
             {/* Action buttons */}
@@ -140,7 +142,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 onClick={() => setActiveTab('products')}
                 className="bg-gradient-to-r from-animex-orange-500 to-animex-orange-600 hover:from-animex-orange-600 hover:to-animex-orange-700 text-white font-extrabold px-7 py-3.5 rounded-2xl shadow-xl shadow-animex-orange-500/30 hover:scale-105 transition-all text-sm flex items-center gap-2"
               >
-                <span>{heroSlides[currentSlide].ctaPrimary}</span>
+                <span>{t('exploreProductsBtn')}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
@@ -149,7 +151,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 className="bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-md font-bold px-6 py-3.5 rounded-2xl transition-all text-sm flex items-center gap-2"
               >
                 <MapPin className="w-4 h-4 text-animex-green-400" />
-                <span>{heroSlides[currentSlide].ctaSecondary}</span>
+                <span>{t('findNearestDealerBtn')}</span>
               </button>
             </div>
 
@@ -173,7 +175,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div className="lg:col-span-5 hidden lg:block">
             <div className="glass-panel p-6 rounded-3xl border border-white/20 shadow-2xl relative animate-float">
               <div className="absolute -top-3 -right-3 bg-animex-orange-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-md">
-                #1 Bestseller
+                #1 {t('bestSellerBadge')}
               </div>
               <div className="h-56 rounded-2xl overflow-hidden mb-4 relative group">
                 <img
@@ -208,7 +210,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 onClick={() => onOpenProductModal(products[0])}
                 className="w-full mt-4 bg-animex-blue-600 hover:bg-animex-blue-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors"
               >
-                <span>View Complete Specifications</span>
+                <span>{t('viewDetails')}</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
@@ -226,7 +228,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               500+
             </div>
             <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-              Veterinary Products
+              {t('formulationsCount')}
             </div>
           </div>
 
@@ -235,7 +237,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               1,000+
             </div>
             <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-              Authorized Dealers
+              {t('dealersNationwide')}
             </div>
           </div>
 
@@ -244,7 +246,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               10,000+
             </div>
             <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-              Satisfied Farmers
+              {t('farmersServed')}
             </div>
           </div>
 
@@ -253,7 +255,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               99.8%
             </div>
             <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-              Quality Pass Rate
+              {t('qualityAssurance')}
             </div>
           </div>
 
@@ -264,14 +266,11 @@ export const HomePage: React.FC<HomePageProps> = ({
       <section className="max-w-7xl mx-auto px-4">
         <div className="text-center space-y-3 mb-10">
           <span className="text-xs font-extrabold uppercase tracking-widest text-animex-orange-500 bg-animex-orange-500/10 px-3 py-1 rounded-full">
-            Tailored Healthcare Solutions
+            {t('categoriesSubtitle')}
           </span>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-sans">
-            Select Your Animal Species
+            {t('categoriesTitle')}
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto">
-            Click on any livestock category to browse specialized supplements, mineral mixtures, and medicines.
-          </p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
@@ -307,10 +306,10 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
           <div>
             <span className="text-xs font-extrabold uppercase tracking-widest text-animex-blue-600 dark:text-sky-400 bg-animex-blue-50 dark:bg-slate-800 px-3 py-1 rounded-full">
-              Product Categories
+              {t('navProducts')}
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white font-sans mt-2">
-              Comprehensive Veterinary Range
+              {t('featuredProductsTitle')}
             </h2>
           </div>
           <button

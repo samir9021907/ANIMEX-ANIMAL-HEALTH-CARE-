@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Product, Category, Disease, AnimalType } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   Search, 
   Filter, 
@@ -39,6 +40,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
   setSelectedDisease,
   onOpenProductModal
 }) => {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -47,15 +49,15 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
   const [downloadingPdf, setDownloadingPdf] = useState<string | null>(null);
 
   const animalsList: { id: string; label: string }[] = [
-    { id: 'ALL', label: 'All Animals' },
-    { id: 'COW', label: 'Cow' },
-    { id: 'BUFFALO', label: 'Buffalo' },
-    { id: 'GOAT', label: 'Goat' },
-    { id: 'SHEEP', label: 'Sheep' },
-    { id: 'POULTRY', label: 'Poultry' },
-    { id: 'HORSE', label: 'Horse' },
-    { id: 'CAMEL', label: 'Camel' },
-    { id: 'PET', label: 'Pet Animals' }
+    { id: 'ALL', label: t('allAnimals') },
+    { id: 'COW', label: t('animalCOW') },
+    { id: 'BUFFALO', label: t('animalBUFFALO') },
+    { id: 'GOAT', label: t('animalGOAT') },
+    { id: 'SHEEP', label: t('animalSHEEP') },
+    { id: 'POULTRY', label: t('animalPOULTRY') },
+    { id: 'HORSE', label: t('animalHORSE') },
+    { id: 'CAMEL', label: t('animalCAMEL') },
+    { id: 'PET', label: t('animalPET') }
   ];
 
   const filteredProducts = useMemo(() => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Dealer } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   MapPin, 
   Phone, 
@@ -19,6 +20,7 @@ interface DealerLocatorPageProps {
 }
 
 export const DealerLocatorPage: React.FC<DealerLocatorPageProps> = ({ dealers, onRegisterDealer }) => {
+  const { t } = useLanguage();
   const [selectedState, setSelectedState] = useState('ALL');
   const [selectedDistrict, setSelectedDistrict] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
