@@ -17,14 +17,15 @@ import {
 interface DealerLocatorPageProps {
   dealers: Dealer[];
   onRegisterDealer: (dealerData: any) => void;
+  autoOpenModal?: boolean;
 }
 
-export const DealerLocatorPage: React.FC<DealerLocatorPageProps> = ({ dealers, onRegisterDealer }) => {
+export const DealerLocatorPage: React.FC<DealerLocatorPageProps> = ({ dealers, onRegisterDealer, autoOpenModal = false }) => {
   const { t } = useLanguage();
   const [selectedState, setSelectedState] = useState('ALL');
   const [selectedDistrict, setSelectedDistrict] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
-  const [showRegModal, setShowRegModal] = useState(false);
+  const [showRegModal, setShowRegModal] = useState(autoOpenModal);
 
   // Form states
   const [firmName, setFirmName] = useState('');

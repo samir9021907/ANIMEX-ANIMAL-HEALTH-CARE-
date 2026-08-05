@@ -36,6 +36,7 @@ interface HomePageProps {
   setSelectedAnimal: (animal: string) => void;
   setSelectedDisease: (disease: string) => void;
   onOpenProductModal: (product: Product) => void;
+  onOpenDealerRegistration?: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
@@ -48,7 +49,8 @@ export const HomePage: React.FC<HomePageProps> = ({
   setSelectedCategory,
   setSelectedAnimal,
   setSelectedDisease,
-  onOpenProductModal
+  onOpenProductModal,
+  onOpenDealerRegistration
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { t } = useLanguage();
@@ -743,17 +745,26 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           <div className="flex flex-wrap items-center gap-3 relative z-10">
             <button
-              onClick={() => setActiveTab('dealer-locator')}
-              className="bg-white text-animex-blue-900 hover:bg-slate-100 font-black px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all"
+              onClick={() => {
+                if (onOpenDealerRegistration) {
+                  onOpenDealerRegistration();
+                } else {
+                  setActiveTab('dealer-locator');
+                }
+              }}
+              className="bg-white text-animex-blue-900 hover:bg-slate-100 font-black px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all hover:scale-105"
             >
               Apply for Dealership
             </button>
             <a
               href="tel:8999323908"
-              className="bg-animex-orange-500 hover:bg-animex-orange-600 text-white font-black px-5 py-3.5 rounded-2xl text-xs uppercase tracking-wider flex items-center gap-2 transition-all"
+              onClick={() => {
+                window.open('https://wa.me/918999323908?text=Hello%20ANIMEX,%20I%20want%20to%20apply%20for%20dealership%20and%20product%20distribution.', '_blank');
+              }}
+              className="bg-animex-orange-500 hover:bg-animex-orange-600 text-white font-black px-5 py-3.5 rounded-2xl text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md hover:scale-105"
             >
               <PhoneCall className="w-4 h-4" />
-              <span>Call Helpline</span>
+              <span>Call Helpline / WhatsApp</span>
             </a>
           </div>
         </div>

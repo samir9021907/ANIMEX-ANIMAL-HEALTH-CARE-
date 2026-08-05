@@ -30,8 +30,9 @@ export const App: React.FC = () => {
   const [selectedAnimal, setSelectedAnimal] = useState<string>('ALL');
   const [selectedDisease, setSelectedDisease] = useState<string>('ALL');
   
-  // Modal State
+  // Modal States
   const [activeModalProduct, setActiveModalProduct] = useState<Product | null>(null);
+  const [autoOpenDealerModal, setAutoOpenDealerModal] = useState<boolean>(false);
 
   // Dark Mode Toggle Class Effect
   useEffect(() => {
@@ -127,6 +128,10 @@ export const App: React.FC = () => {
               setSelectedAnimal={setSelectedAnimal}
               setSelectedDisease={setSelectedDisease}
               onOpenProductModal={(p) => setActiveModalProduct(p)}
+              onOpenDealerRegistration={() => {
+                setAutoOpenDealerModal(true);
+                setActiveTab('dealer-locator');
+              }}
             />
           )}
 
@@ -159,6 +164,7 @@ export const App: React.FC = () => {
             <DealerLocatorPage
               dealers={dealersList}
               onRegisterDealer={handleRegisterDealer}
+              autoOpenModal={autoOpenDealerModal}
             />
           )}
 
