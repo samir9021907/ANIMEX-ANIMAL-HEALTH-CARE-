@@ -284,6 +284,37 @@ export const PRODUCTS: SeedProduct[] = [
     ],
     dosage: '100-200ml daily post-calving for 3-5 days or as advised by veterinary consultant.',
     diseases: ['milk-fever-hypocalcemia']
+  },
+  {
+    id: 'prod-6',
+    title: 'MILKYMEX-DS™ (Chelated Mineral Mixture Powder)',
+    slug: 'milkymex-ds-mineral-mixture',
+    sku: 'AMX-MLK-DS-06',
+    category: 'Mineral Mixtures',
+    summary: 'संतुलित पोषण, स्वस्थ पशु, अधिक दूध, अधिक लाभ! Premium Chelated Minerals, Vitamins & Probiotics Powder.',
+    description: 'MILKYMEX-DS™ is a high-grade premium chelated mineral mixture powder enriched with essential minerals, vitamins, and probiotics. Specially formulated for cows, buffaloes, goats, sheep, and poultry to increase milk yield, fat percentage, bone strength, fertility, and immunity.',
+    targetAnimals: ['COW', 'BUFFALO', 'GOAT', 'SHEEP', 'POULTRY'],
+    isFeatured: true,
+    isBestSeller: true,
+    image: '/images/milkymex-ds.jpg',
+    variants: ['1 kg Pack', '5 kg Bucket', '10 kg Bucket', '25 kg Pack / Bucket'],
+    benefits: [
+      'दूध उत्पादन में वृद्धि (दूध की मात्रा और गुणवत्ता दोनों को बेहतर बनाता है)',
+      'मजबूत हड्डियाँ (कैल्शियम, फॉस्फोरस और विटामिन D3 से हड्डियाँ मजबूत)',
+      'रोग प्रतिरोधक क्षमता बढ़ाए (सूक्ष्म पोषक तत्व इम्युनिटी बढ़ाते हैं, बीमारी से बचाव)',
+      'बेहतर वृद्धि एवं विकास (विटामिन, मिनरल्स और प्रीबायोटिक्स से तेजी से ग्रोथ)',
+      'फर्टिलिटी एवं रिप्रोडक्शन में सुधार (हीट में सुधार, कंसीव रेट बढ़ाता है)',
+      'बेहतर पाचन और पोषक तत्वों का अवशोषण (प्रीबायोटिक्स पाचन सुधारते हैं)'
+    ],
+    ingredients: [
+      { name: 'Chelated Minerals (Cu, Zn, Mn, Fe, Co, I)', quantity: 'Organic Bio-available' },
+      { name: 'Calcium & Phosphorus', quantity: 'Balanced Ratio' },
+      { name: 'Vitamin A, D3, E & Biotin', quantity: 'High Potency' },
+      { name: 'Probiotics & Prebiotics', quantity: 'Gut Active Strains' },
+      { name: 'Shatavari & Herbal Extracts', quantity: 'Pure Extract' }
+    ],
+    dosage: 'Cattle & Buffalo: 50g daily | Calf, Sheep & Goat: 15-20g daily | Poultry: 1kg per 100kg feed mixture.',
+    diseases: ['milk-fever-hypocalcemia', 'bone-weakness-deficiency', 'poor-digestion-bloating']
   }
 ];
 

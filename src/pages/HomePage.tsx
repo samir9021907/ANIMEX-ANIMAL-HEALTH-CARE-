@@ -83,6 +83,16 @@ export const HomePage: React.FC<HomePageProps> = ({
       image: "https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=1200&q=80",
       ctaPrimary: "Gut & Liver Care",
       ctaSecondary: "Dealer Registration"
+    },
+    {
+      title: "MILKYMEX-DS™ Chelated Mineral & Vitamin Powder",
+      subtitle: "संतुलित पोषण, स्वस्थ पशु, अधिक दूध, अधिक लाभ!",
+      description: "Organic chelated minerals, vitamins, probiotics & Shatavari extract for peak milk fat, SNF, bone strength, fertility & digestion.",
+      badge: "PREMIUM QUALITY RESULTS • 25KG PACK",
+      bgGradient: "from-emerald-950 via-slate-900 to-animex-blue-900",
+      image: "/images/milkymex-ds.jpg",
+      ctaPrimary: "Explore Milkymex-DS",
+      ctaSecondary: "Inquire on WhatsApp"
     }
   ];
 
