@@ -413,7 +413,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                       Quick View
                     </button>
                     <a
-                      href={`https://wa.me/919825012345?text=I%20am%20interested%20in%20${encodeURIComponent(product.title)}`}
+                      href={`https://wa.me/919307990811?text=I%20am%20interested%20in%20${encodeURIComponent(product.title)}`}
                       target="_blank"
                       rel="noreferrer"
                       className="p-2 bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-xl hover:bg-emerald-600 hover:text-white transition-colors"
