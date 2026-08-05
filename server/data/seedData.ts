@@ -61,7 +61,7 @@ export const COMPANY_DETAILS = {
   paidUpCapital: '₹1,00,000',
   tagline: 'Healthy Animals... Prosperous Farms!',
   address: '0208/RVN Havaldar Mala, Bahadurpur, Kopargaon Jawalke, Dist. Ahmednagar - 423605, Maharashtra, India',
-  phone: '9307990811',
+  phone: '9021590368',
   tollFree: '1800-123-4567',
   email: 'animexanimalhealthcare@gmail.com',
   directors: [
