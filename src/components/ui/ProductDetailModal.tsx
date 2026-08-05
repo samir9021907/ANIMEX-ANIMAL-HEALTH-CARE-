@@ -33,6 +33,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
   const handleInquirySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inquiryName && inquiryPhone) {
+      const messageText = `Hello ANIMEX Health Care,\n\nI want product inquiry / quote for:\n📦 Product: ${product.title}\n📏 Pack Size: ${currentPack}\n\n👤 Name: ${inquiryName}\n📞 Phone: ${inquiryPhone}`;
+      const waUrl = `https://wa.me/919825012345?text=${encodeURIComponent(messageText)}`;
+
+      // Automatically launch WhatsApp with pre-filled inquiry details
+      window.open(waUrl, '_blank');
+
       setSubmitted(true);
       setTimeout(() => {
         setSubmitted(false);
@@ -171,16 +177,17 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                 href={`https://wa.me/919825012345?text=Hello%20ANIMEX,%20I%20want%20quote%20for%20${encodeURIComponent(product.title)}%20(${encodeURIComponent(currentPack)})`}
                 target="_blank"
                 rel="noreferrer"
-                className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-extrabold px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-md"
+                className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-extrabold px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-md hover:scale-105 transition-all"
               >
-                <MessageSquare className="w-4 h-4" />
-                <span>WhatsApp Quote</span>
+                <MessageSquare className="w-4 h-4 fill-current" />
+                <span>Direct WhatsApp Chat</span>
               </a>
             </div>
 
             {submitted ? (
-              <div className="bg-emerald-500/20 border border-emerald-400 text-emerald-300 p-4 rounded-2xl text-xs font-bold text-center">
-                Thank you! Your inquiry for {product.title} has been submitted. Our executive will call you shortly.
+              <div className="bg-emerald-500/20 border border-emerald-400 text-emerald-300 p-4 rounded-2xl text-xs font-bold text-center flex items-center justify-center gap-2">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Redirecting your inquiry for {product.title} to WhatsApp! Our executive will connect shortly.</span>
               </div>
             ) : (
               <form onSubmit={handleInquirySubmit} className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -202,9 +209,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
                 />
                 <button
                   type="submit"
-                  className="bg-animex-orange-500 hover:bg-animex-orange-600 text-white font-extrabold text-xs py-2 rounded-xl transition-all shadow-md"
+                  className="bg-gradient-to-r from-emerald-600 to-green-500 hover:from-emerald-500 hover:to-green-600 text-white font-extrabold text-xs py-2 rounded-xl transition-all shadow-md flex items-center justify-center gap-1.5"
                 >
-                  Submit Inquiry
+                  <MessageSquare className="w-3.5 h-3.5 fill-current" />
+                  <span>Send Inquiry on WhatsApp</span>
                 </button>
               </form>
             )}
