@@ -189,13 +189,13 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="absolute -top-3 -right-3 bg-animex-orange-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-md">
                 Featured Product #{currentSlide + 1}
               </div>
-              <div className="h-64 rounded-2xl overflow-hidden mb-4 relative group bg-gradient-to-b from-slate-900/80 to-slate-950/90 border border-white/10 p-2 flex items-center justify-center">
+              <div className="h-56 rounded-2xl overflow-hidden mb-4 relative group">
                 <img
                   src={activeHighlightProduct?.image || heroSlides[currentSlide].image}
                   alt={activeHighlightProduct?.title}
-                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500 rounded-xl"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end p-4 pointer-events-none">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
                   <div>
                     <span className="text-[11px] font-extrabold text-animex-green-400 uppercase tracking-wider block">
                       {activeHighlightProduct?.category}
