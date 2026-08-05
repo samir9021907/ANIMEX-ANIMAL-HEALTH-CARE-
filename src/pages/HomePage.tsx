@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Product, Category, Disease, Testimonial, Blog } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 import { 
@@ -97,6 +97,15 @@ export const HomePage: React.FC<HomePageProps> = ({
     { id: 'PET', name: t('animalPET'), image: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=400&q=80', badge: 'Pet Care' }
   ];
 
+  useEffect(() => {
+    const slideTimer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 4500);
+    return () => clearInterval(slideTimer);
+  }, [heroSlides.length]);
+
+  const activeHighlightProduct = products[currentSlide % products.length] || products[0];
+
   return (
     <div className="space-y-16 pb-12">
       
@@ -105,37 +114,38 @@ export const HomePage: React.FC<HomePageProps> = ({
         {/* Slide background visual with smooth gradient overlays */}
         <div className="absolute inset-0 z-0">
           <img
+            key={currentSlide}
             src={heroSlides[currentSlide].image}
             alt="Livestock healthcare background"
-            className="w-full h-full object-cover object-center opacity-30 transition-all duration-1000 scale-105"
+            className="w-full h-full object-cover object-center opacity-35 transition-all duration-1000 scale-105 animate-in fade-in"
           />
-          <div className={`absolute inset-0 bg-gradient-to-r ${heroSlides[currentSlide].bgGradient} opacity-90`} />
+          <div className={`absolute inset-0 bg-gradient-to-r ${heroSlides[currentSlide].bgGradient} opacity-90 transition-colors duration-1000`} />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-animex-orange-500/20 via-transparent to-transparent" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 py-16 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-6 animate-in fade-in duration-500" key={`slide-text-${currentSlide}`}>
             
             {/* Top pill badge */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-bold text-animex-orange-400">
               <Award className="w-4 h-4 text-animex-orange-400 animate-pulse" />
-              <span>{t('heroBadge')}</span>
+              <span>{heroSlides[currentSlide].badge}</span>
             </div>
 
             {/* Subtitle */}
             <h3 className="text-xs md:text-sm font-extrabold uppercase tracking-widest text-sky-400 font-sans">
-              {t('heroTitlePrefix')}
+              {heroSlides[currentSlide].subtitle}
             </h3>
 
             {/* Main Title */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black font-sans tracking-tight leading-tight text-white">
-              {t('heroTitleHighlight')}
+              {heroSlides[currentSlide].title}
             </h1>
 
             {/* Description */}
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
-              {t('heroSubtext')}
+              {heroSlides[currentSlide].description}
             </p>
 
             {/* Action buttons */}
@@ -144,7 +154,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 onClick={() => setActiveTab('products')}
                 className="bg-gradient-to-r from-animex-orange-500 to-animex-orange-600 hover:from-animex-orange-600 hover:to-animex-orange-700 text-white font-extrabold px-7 py-3.5 rounded-2xl shadow-xl shadow-animex-orange-500/30 hover:scale-105 transition-all text-sm flex items-center gap-2"
               >
-                <span>{t('exploreProductsBtn')}</span>
+                <span>{heroSlides[currentSlide].ctaPrimary}</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
 
@@ -153,7 +163,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 className="bg-white/15 hover:bg-white/25 text-white border border-white/30 backdrop-blur-md font-bold px-6 py-3.5 rounded-2xl transition-all text-sm flex items-center gap-2"
               >
                 <MapPin className="w-4 h-4 text-animex-green-400" />
-                <span>{t('findNearestDealerBtn')}</span>
+                <span>{heroSlides[currentSlide].ctaSecondary}</span>
               </button>
             </div>
 
@@ -163,10 +173,10 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <button
                   key={idx}
                   onClick={() => setCurrentSlide(idx)}
-                  className={`h-2.5 rounded-full transition-all ${
-                    currentSlide === idx ? 'w-10 bg-animex-orange-500' : 'w-2.5 bg-white/30 hover:bg-white/60'
+                  className={`h-3 rounded-full transition-all duration-300 ${
+                    currentSlide === idx ? 'w-10 bg-animex-orange-500 shadow-md shadow-animex-orange-500/50' : 'w-3 bg-white/40 hover:bg-white/80'
                   }`}
-                  title={`Go to slide ${idx + 1}`}
+                  title={`Switch to Slide ${idx + 1}`}
                 />
               ))}
             </div>
@@ -174,24 +184,24 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
 
           {/* Floating Product Highlight Card */}
-          <div className="lg:col-span-5 hidden lg:block">
-            <div className="glass-panel p-6 rounded-3xl border border-white/20 shadow-2xl relative animate-float">
+          <div className="lg:col-span-5 hidden lg:block" key={`slide-card-${currentSlide}`}>
+            <div className="glass-panel p-6 rounded-3xl border border-white/20 shadow-2xl relative animate-in fade-in zoom-in-95 duration-500">
               <div className="absolute -top-3 -right-3 bg-animex-orange-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-md">
-                #1 {t('bestSellerBadge')}
+                Featured Product #{currentSlide + 1}
               </div>
               <div className="h-56 rounded-2xl overflow-hidden mb-4 relative group">
                 <img
-                  src={products[0]?.image || heroSlides[0].image}
-                  alt={products[0]?.title}
+                  src={activeHighlightProduct?.image || heroSlides[currentSlide].image}
+                  alt={activeHighlightProduct?.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
                   <div>
                     <span className="text-[11px] font-extrabold text-animex-green-400 uppercase tracking-wider block">
-                      {products[0]?.category}
+                      {activeHighlightProduct?.category}
                     </span>
                     <h4 className="text-base font-black text-white">
-                      {products[0]?.title}
+                      {activeHighlightProduct?.title}
                     </h4>
                   </div>
                 </div>
@@ -200,19 +210,19 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div className="space-y-2 text-xs text-slate-200">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-animex-green-400 shrink-0" />
-                  <span>Boosts daily milk yield by 1.5L to 2.5L</span>
+                  <span>High bio-availability veterinary formula</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-animex-green-400 shrink-0" />
-                  <span>Organic Chelated Calcium & Shatavari Extract</span>
+                  <span>Fast clinical action for peak productivity</span>
                 </div>
               </div>
 
               <button
-                onClick={() => onOpenProductModal(products[0])}
-                className="w-full mt-4 bg-animex-blue-600 hover:bg-animex-blue-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors"
+                onClick={() => onOpenProductModal(activeHighlightProduct)}
+                className="w-full mt-4 bg-animex-blue-600 hover:bg-animex-blue-700 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 transition-colors shadow-md"
               >
-                <span>{t('viewDetails')}</span>
+                <span>View Specifications</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
