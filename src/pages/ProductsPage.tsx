@@ -48,8 +48,15 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState<'featured' | 'title' | 'bestseller'>('featured');
-  const [wishlist, setWishlist] = useState<string[]>([]);
+  const [wishlist, setWishlist] = useState<string[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem('animex_wishlist_items') || '[]');
+    } catch (e) {
+      return [];
+    }
+  });
   const [downloadingPdf, setDownloadingPdf] = useState<string | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const animalsList: { id: string; label: string }[] = [
     { id: 'ALL', label: t('allAnimals') },
@@ -98,20 +105,72 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
     });
   }, [products, searchQuery, selectedAnimal, selectedCategory, selectedDisease, sortBy]);
 
-  const toggleWishlist = (id: string) => {
-    if (wishlist.includes(id)) {
-      setWishlist(wishlist.filter(i => i !== id));
+  const toggleWishlist = (product: Product) => {
+    let updated: string[];
+    if (wishlist.includes(product.id)) {
+      updated = wishlist.filter(i => i !== product.id);
+      setWishlist(updated);
+      setToastMessage(`Removed "${product.title}" from Saved Favorites.`);
     } else {
-      setWishlist([...wishlist, id]);
+      updated = [...wishlist, product.id];
+      setWishlist(updated);
+      setToastMessage(`❤️ Added "${product.title}" to Saved Favorites!`);
     }
+    try {
+      localStorage.setItem('animex_wishlist_items', JSON.stringify(updated));
+    } catch (e) {}
+    setTimeout(() => setToastMessage(null), 3500);
   };
 
   const handleDownloadBrochure = (product: Product) => {
     setDownloadingPdf(product.id);
+    
+    // Construct full technical brochure document
+    let doc = `=================================================================\n`;
+    doc += `   ANIMEX ANIMAL HEALTH CARE PRIVATE LIMITED\n`;
+    doc += `   OFFICIAL PRODUCT TECHNICAL BROCHURE & SPECIFICATION SHEET\n`;
+    doc += `=================================================================\n\n`;
+    doc += `PRODUCT TITLE : ${product.title}\n`;
+    doc += `PRODUCT SKU   : ${product.sku}\n`;
+    doc += `CATEGORY      : ${product.category}\n`;
+    doc += `TARGET SPECIES: ${product.targetAnimals.join(', ')}\n`;
+    doc += `PACK SIZES    : ${product.variants.join(', ')}\n\n`;
+    doc += `-----------------------------------------------------------------\n`;
+    doc += `SUMMARY:\n${product.summary}\n\n`;
+    doc += `DETAILED DESCRIPTION:\n${product.description}\n\n`;
+    doc += `KEY CLINICAL BENEFITS:\n`;
+    product.benefits.forEach((b, idx) => {
+      doc += `  ${idx + 1}. ${b}\n`;
+    });
+    doc += `\nCOMPOSITION & INGREDIENTS:\n`;
+    product.ingredients.forEach((ing) => {
+      doc += `  - ${ing.name}: ${ing.quantity}\n`;
+    });
+    doc += `\nRECOMMENDED DOSAGE:\n${product.dosage}\n\n`;
+    doc += `-----------------------------------------------------------------\n`;
+    doc += `MANUFACTURER & DISTRIBUTOR CONTACT:\n`;
+    doc += `ANIMEX ANIMAL HEALTH CARE PRIVATE LIMITED\n`;
+    doc += `0208/RVN Bahadurpur, Kopargaon, Dist. Ahmednagar - 423605, Maharashtra\n`;
+    doc += `Helpline / WhatsApp: +91 8999323908 / 9307990811\n`;
+    doc += `Email: animexanimalhealthcare@gmail.com\n`;
+    doc += `Website: https://www.animexhealth.com\n`;
+    doc += `=================================================================\n`;
+
+    const blob = new Blob([doc], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `ANIMEX_BROCHURE_${product.sku}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
     setTimeout(() => {
       setDownloadingPdf(null);
-      alert(`Downloading official technical brochure for ${product.title}`);
-    }, 1200);
+      setToastMessage(`✓ Official Product Brochure for "${product.title}" downloaded successfully!`);
+      setTimeout(() => setToastMessage(null), 4000);
+    }, 600);
   };
 
   const resetFilters = () => {
@@ -122,7 +181,18 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 py-8 space-y-8 relative">
+      
+      {/* Toast Notification Banner */}
+      {toastMessage && (
+        <div className="fixed top-20 right-4 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/20 text-xs font-bold flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
+          <Sparkles className="w-4 h-4 text-animex-orange-400 shrink-0" />
+          <span>{toastMessage}</span>
+          <button onClick={() => setToastMessage(null)} className="text-slate-400 hover:text-white ml-2">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
       
       {/* Page Header */}
       <div className="space-y-3 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-6">
@@ -337,7 +407,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                 >
                   {/* Wishlist Heart Icon */}
                   <button
-                    onClick={() => toggleWishlist(product.id)}
+                    onClick={() => toggleWishlist(product)}
                     className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-md hover:bg-white text-slate-400 hover:text-rose-500 transition-colors shadow-sm"
                     title="Add to Wishlist"
                   >
