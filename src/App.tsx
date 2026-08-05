@@ -42,6 +42,11 @@ export const App: React.FC = () => {
     }
   }, [darkMode]);
 
+  // Scroll to top of window on page navigation tab change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeTab]);
+
   // Handlers
   const handleAddProduct = (newProd: any) => {
     const created: Product = {
