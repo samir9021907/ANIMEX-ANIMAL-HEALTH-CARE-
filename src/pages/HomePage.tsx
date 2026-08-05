@@ -743,7 +743,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 relative z-10">
+          <div className="flex flex-row items-center gap-3 relative z-10 shrink-0">
             <button
               onClick={() => {
                 if (onOpenDealerRegistration) {
@@ -752,7 +752,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   setActiveTab('dealer-locator');
                 }
               }}
-              className="bg-white text-animex-blue-900 hover:bg-slate-100 font-black px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all hover:scale-105"
+              className="bg-white text-animex-blue-900 hover:bg-slate-100 font-black px-5 sm:px-6 py-3.5 rounded-2xl text-xs uppercase tracking-wider shadow-lg transition-all hover:scale-105 whitespace-nowrap"
             >
               Apply for Dealership
             </button>
@@ -761,9 +761,9 @@ export const HomePage: React.FC<HomePageProps> = ({
               onClick={() => {
                 window.open('https://wa.me/918999323908?text=Hello%20ANIMEX,%20I%20want%20to%20apply%20for%20dealership%20and%20product%20distribution.', '_blank');
               }}
-              className="bg-animex-orange-500 hover:bg-animex-orange-600 text-white font-black px-5 py-3.5 rounded-2xl text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md hover:scale-105"
+              className="bg-animex-orange-500 hover:bg-animex-orange-600 text-white font-black px-4 sm:px-5 py-3.5 rounded-2xl text-xs uppercase tracking-wider flex items-center gap-2 transition-all shadow-md hover:scale-105 whitespace-nowrap"
             >
-              <PhoneCall className="w-4 h-4" />
+              <PhoneCall className="w-4 h-4 shrink-0" />
               <span>Call Helpline / WhatsApp</span>
             </a>
           </div>
