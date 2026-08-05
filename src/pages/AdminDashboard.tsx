@@ -19,7 +19,9 @@ import {
   FileSpreadsheet,
   Settings,
   Activity,
-  Mail
+  Mail,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 
 interface AdminDashboardProps {
@@ -48,6 +50,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loginEmail, setLoginEmail] = useState('admin@animexhealth.com');
   const [loginPassword, setLoginPassword] = useState('admin123');
+  const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState('');
 
   const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'dealers' | 'enquiries' | 'logs'>('overview');
@@ -166,13 +169,23 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
             <div className="space-y-1">
               <label className="font-extrabold text-slate-700 dark:text-slate-300">Password</label>
-              <input
-                type="password"
-                required
-                value={loginPassword}
-                onChange={(e) => setLoginPassword(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-slate-900 dark:text-white outline-none focus:border-animex-orange-500 font-medium"
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  required
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 pr-10 text-slate-900 dark:text-white outline-none focus:border-animex-orange-500 font-medium"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-1"
+                  title={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
 
             <button
