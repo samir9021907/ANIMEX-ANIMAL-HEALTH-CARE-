@@ -57,6 +57,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
   });
   const [downloadingPdf, setDownloadingPdf] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [showOnlyWishlist, setShowOnlyWishlist] = useState<boolean>(false);
 
   const animalsList: { id: string; label: string }[] = [
     { id: 'ALL', label: t('allAnimals') },
@@ -72,6 +73,9 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
+      // 0. Wishlist Only Filter
+      if (showOnlyWishlist && !wishlist.includes(p.id)) return false;
+
       // 1. Search Query
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
@@ -103,7 +107,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
       if (sortBy === 'bestseller') return (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0);
       return a.title.localeCompare(b.title);
     });
-  }, [products, searchQuery, selectedAnimal, selectedCategory, selectedDisease, sortBy]);
+  }, [products, searchQuery, selectedAnimal, selectedCategory, selectedDisease, sortBy, showOnlyWishlist, wishlist]);
 
   const toggleWishlist = (product: Product) => {
     let updated: string[];
@@ -178,6 +182,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
     setSelectedAnimal('ALL');
     setSelectedCategory('ALL');
     setSelectedDisease('ALL');
+    setShowOnlyWishlist(false);
   };
 
   return (
@@ -209,8 +214,22 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
           </p>
         </div>
 
-        {/* View mode toggle & sorting */}
-        <div className="flex items-center gap-3">
+        {/* View mode toggle & sorting & Wishlist filter */}
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Saved Wishlist Button */}
+          <button
+            onClick={() => setShowOnlyWishlist(!showOnlyWishlist)}
+            className={`px-3.5 py-2.5 rounded-xl text-xs font-black flex items-center gap-1.5 transition-all ${
+              showOnlyWishlist
+                ? 'bg-rose-500 text-white shadow-md shadow-rose-500/30'
+                : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-rose-500'
+            }`}
+            title="Show My Saved Wishlist Items"
+          >
+            <Heart className={`w-4 h-4 ${wishlist.length > 0 ? 'fill-rose-500 text-rose-500' : ''} ${showOnlyWishlist ? 'fill-white text-white' : ''}`} />
+            <span>Saved Favorites ({wishlist.length})</span>
+          </button>
+
           <div className="flex items-center bg-slate-100 dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700">
             <button
               onClick={() => setViewMode('grid')}
@@ -256,7 +275,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
               <Filter className="w-4 h-4 text-animex-orange-500" />
               <span>Filters & Categories</span>
             </div>
-            {(selectedAnimal !== 'ALL' || selectedCategory !== 'ALL' || selectedDisease !== 'ALL' || searchQuery !== '') && (
+            {(selectedAnimal !== 'ALL' || selectedCategory !== 'ALL' || selectedDisease !== 'ALL' || searchQuery !== '' || showOnlyWishlist) && (
               <button
                 onClick={resetFilters}
                 className="text-[11px] font-bold text-animex-orange-500 hover:underline flex items-center gap-1"
