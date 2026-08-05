@@ -34,7 +34,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
     e.preventDefault();
     if (inquiryName && inquiryPhone) {
       const messageText = `Hello ANIMEX Health Care,\n\nI want product inquiry / quote for:\n📦 Product: ${product.title}\n📏 Pack Size: ${currentPack}\n\n👤 Name: ${inquiryName}\n📞 Phone: ${inquiryPhone}`;
-      const waUrl = `https://wa.me/919021590368?text=${encodeURIComponent(messageText)}`;
+      const waUrl = `https://wa.me/918999323908?text=${encodeURIComponent(messageText)}`;
 
       // Automatically launch WhatsApp with pre-filled inquiry details
       window.open(waUrl, '_blank');
@@ -174,7 +174,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
               </div>
 
               <a
-                href={`https://wa.me/919021590368?text=Hello%20ANIMEX,%20I%20want%20quote%20for%20${encodeURIComponent(product.title)}%20(${encodeURIComponent(currentPack)})`}
+                href={`https://wa.me/918999323908?text=Hello%20ANIMEX,%20I%20want%20quote%20for%20${encodeURIComponent(product.title)}%20(${encodeURIComponent(currentPack)})`}
                 target="_blank"
                 rel="noreferrer"
                 className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-extrabold px-4 py-2 rounded-xl flex items-center gap-1.5 shadow-md hover:scale-105 transition-all"

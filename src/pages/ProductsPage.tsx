@@ -398,7 +398,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                       </button>
 
                       <a
-                        href={`https://wa.me/919021590368?text=Hello%20ANIMEX,%20I%20want%20price%20quote%20for%20${encodeURIComponent(product.title)}`}
+                        href={`https://wa.me/918999323908?text=Hello%20ANIMEX,%20I%20want%20price%20quote%20for%20${encodeURIComponent(product.title)}`}
                         target="_blank"
                         rel="noreferrer"
                         className="p-2.5 bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-xl hover:bg-emerald-600 hover:text-white transition-colors"
@@ -457,7 +457,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                       View Specifications
                     </button>
                     <a
-                      href={`https://wa.me/919021590368?text=Hello%20ANIMEX,%20I%20want%20quote%20for%20${encodeURIComponent(product.title)}`}
+                      href={`https://wa.me/918999323908?text=Hello%20ANIMEX,%20I%20want%20quote%20for%20${encodeURIComponent(product.title)}`}
                       target="_blank"
                       rel="noreferrer"
                       className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl flex items-center gap-1.5 transition-colors"
