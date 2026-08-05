@@ -360,7 +360,7 @@ export const BLOGS: SeedBlog[] = [
     slug: 'maximize-milk-fat-snf-milkymex-ds',
     excerpt: 'How organic chelated trace minerals (Copper, Zinc, Cobalt) and Shatavari galactagogues boost daily milk fat %, SNF, and peak lactation curve.',
     content: 'Balanced nutrition is essential for peak daily milk fat and SNF yield. Standard inorganic mineral salts have low bio-absorption... MILKYMEX-DS contains amino-acid chelated minerals...',
-    coverImage: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?auto=format&fit=crop&w=800&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
     category: 'Nutrition & Milk Fat',
     date: '2026-08-04'
   },
@@ -370,7 +370,7 @@ export const BLOGS: SeedBlog[] = [
     slug: 'managing-bloating-indigestion-rumen-mex',
     excerpt: 'Rumen acidosis and sluggish microflora cause severe appetite reduction in high-yield dairy cows and buffaloes. Discover herbal bio-buffer therapy.',
     content: 'Sudden feed changes and high-concentrate diet often lead to rumen bloat and anorexia. RUMEN MEX delivers active Lactobacillus strains, Ajwain, and Ginger extracts...',
-    coverImage: 'https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=800&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1546445317-29f4545f9d52?auto=format&fit=crop&w=800&q=80',
     category: 'Gut & Rumen Health',
     date: '2026-08-05'
   }
