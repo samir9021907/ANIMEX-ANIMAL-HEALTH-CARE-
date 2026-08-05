@@ -185,7 +185,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
           {/* Floating Product Highlight Card */}
           <div className="lg:col-span-5 hidden lg:block" key={`slide-card-${currentSlide}`}>
-            <div className="glass-panel p-6 rounded-3xl border border-white/20 shadow-2xl relative animate-in fade-in zoom-in-95 duration-500">
+            <div className="glass-panel p-6 rounded-3xl border border-white/20 shadow-2xl relative animate-float">
               <div className="absolute -top-3 -right-3 bg-animex-orange-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-md">
                 Featured Product #{currentSlide + 1}
               </div>
