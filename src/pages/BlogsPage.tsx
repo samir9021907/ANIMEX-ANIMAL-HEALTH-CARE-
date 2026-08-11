@@ -46,7 +46,7 @@ export const BlogsPage: React.FC<BlogsPageProps> = ({ blogs }) => {
     <div className="max-w-7xl mx-auto px-4 py-8 space-y-10">
       
       {/* 1. HEADER BANNER */}
-      <div className="bg-gradient-to-r from-animex-blue-950 via-slate-900 to-animex-blue-900 p-8 sm:p-12 rounded-3xl text-white shadow-2xl space-y-4 relative overflow-hidden border border-slate-800">
+      <div className="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 text-white p-8 sm:p-12 rounded-3xl shadow-2xl space-y-4 relative overflow-hidden border border-slate-800">
         <div className="inline-flex items-center gap-2 bg-animex-orange-500/20 text-animex-orange-400 px-3.5 py-1.5 rounded-full text-xs font-black border border-animex-orange-500/30 uppercase tracking-wider">
           <Award className="w-4 h-4" />
           <span>Scientific Livestock Nutrition & Veterinary Insights</span>
