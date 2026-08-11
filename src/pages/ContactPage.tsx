@@ -211,7 +211,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ faqs, onSubmitEnquiry 
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Ramesh Patel"
+                    placeholder="e.g. Karan Rahane"
                     className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-slate-900 dark:text-white outline-none focus:border-animex-orange-500"
                   />
                 </div>
@@ -223,7 +223,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ faqs, onSubmitEnquiry 
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 8799883858"
                     className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-slate-900 dark:text-white outline-none focus:border-animex-orange-500"
                   />
                 </div>

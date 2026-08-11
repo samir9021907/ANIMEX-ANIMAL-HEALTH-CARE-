@@ -21,7 +21,7 @@ export const App: React.FC = () => {
   const [productsList, setProductsList] = useState<Product[]>(PRODUCTS as any);
   const [dealersList, setDealersList] = useState<Dealer[]>(DEALERS as any);
   const [enquiriesList, setEnquiriesList] = useState<Enquiry[]>([
-    { id: 'enq-1', name: 'Ramesh Patel', phone: '+91 98250 12345', email: 'ramesh@gmail.com', message: 'Need bulk price for 100 cans of Cal-Gold 5 Litre', productId: 'prod-1', status: 'PENDING', createdAt: '2026-08-01' },
+    { id: 'enq-1', name: 'Karan Rahane', phone: '+91 87998 83858', email: 'karanrahane@gmail.com', message: 'Need bulk price for 100 cans of Cal-Gold 5 Litre', productId: 'prod-1', status: 'PENDING', createdAt: '2026-08-01' },
     { id: 'enq-2', name: 'Sunil Verma', phone: '+91 98980 11223', email: 'sunil@verma.com', message: 'Interested in becoming sole distributor in Karnal area.', status: 'IN_PROGRESS', createdAt: '2026-08-03' }
   ]);
 
