@@ -61,7 +61,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
             className="inline-flex items-center gap-1.5 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-animex-orange-500 font-extrabold text-xs px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:scale-105"
           >
             <ArrowLeft className="w-4 h-4 text-animex-orange-500" />
-            <span>← Back / मागे जा</span>
+            <span>← Back</span>
           </button>
 
           <span className="text-xs font-black text-slate-500 dark:text-slate-400 hidden sm:inline-block">

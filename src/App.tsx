@@ -32,9 +32,23 @@ export const App: React.FC = () => {
   const [selectedAnimal, setSelectedAnimal] = useState<string>('ALL');
   const [selectedDisease, setSelectedDisease] = useState<string>('ALL');
   
-  // Modal States
+  // Modal States & Scroll Preservation
   const [activeModalProduct, setActiveModalProduct] = useState<Product | null>(null);
   const [autoOpenDealerModal, setAutoOpenDealerModal] = useState<boolean>(false);
+  const savedScrollPosition = React.useRef<number>(0);
+
+  const openProductModal = (product: Product) => {
+    savedScrollPosition.current = window.scrollY;
+    setActiveModalProduct(product);
+  };
+
+  const closeProductModal = () => {
+    const targetY = savedScrollPosition.current;
+    setActiveModalProduct(null);
+    setTimeout(() => {
+      window.scrollTo({ top: targetY, behavior: 'instant' });
+    }, 20);
+  };
 
   // Navigation tab switcher with history stack & browser pushState
   const setActiveTab = (newTab: string) => {
@@ -48,7 +62,7 @@ export const App: React.FC = () => {
   // Dedicated Back Button Handler
   const handleGoBack = () => {
     if (activeModalProduct) {
-      setActiveModalProduct(null);
+      closeProductModal();
       return;
     }
     if (tabHistory.length > 0) {
@@ -66,7 +80,7 @@ export const App: React.FC = () => {
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
       if (activeModalProduct) {
-        setActiveModalProduct(null);
+        closeProductModal();
         return;
       }
       if (e.state && e.state.tab) {
@@ -90,7 +104,9 @@ export const App: React.FC = () => {
 
   // Scroll to top of window on page navigation tab change
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (!activeModalProduct) {
+      window.scrollTo(0, 0);
+    }
   }, [activeTab]);
 
   // Handlers
@@ -197,7 +213,7 @@ export const App: React.FC = () => {
               setSelectedCategory={setSelectedCategory}
               setSelectedAnimal={setSelectedAnimal}
               setSelectedDisease={setSelectedDisease}
-              onOpenProductModal={(p) => setActiveModalProduct(p)}
+              onOpenProductModal={(p) => openProductModal(p)}
               onOpenDealerRegistration={() => {
                 setActiveTab('dealer-locator');
                 setAutoOpenDealerModal(true);
@@ -216,7 +232,7 @@ export const App: React.FC = () => {
               setSelectedAnimal={setSelectedAnimal}
               selectedDisease={selectedDisease}
               setSelectedDisease={setSelectedDisease}
-              onOpenProductModal={(p) => setActiveModalProduct(p)}
+              onOpenProductModal={(p) => openProductModal(p)}
             />
           )}
 
@@ -226,7 +242,7 @@ export const App: React.FC = () => {
               products={productsList}
               setActiveTab={setActiveTab}
               setSelectedDisease={setSelectedDisease}
-              onOpenProductModal={(p) => setActiveModalProduct(p)}
+              onOpenProductModal={(p) => openProductModal(p)}
             />
           )}
 
@@ -277,7 +293,7 @@ export const App: React.FC = () => {
         {/* Global Product Specification Detail Modal */}
         <ProductDetailModal
           product={activeModalProduct}
-          onClose={() => setActiveModalProduct(null)}
+          onClose={closeProductModal}
         />
 
         {/* Corporate Brand Footer */}
