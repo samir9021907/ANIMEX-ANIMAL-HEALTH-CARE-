@@ -374,30 +374,71 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map((cat) => (
-            <div
-              key={cat.id}
-              onClick={() => {
-                setSelectedCategory(cat.name);
-                setActiveTab('products');
-              }}
-              className="glass-card p-6 rounded-3xl cursor-pointer group hover:bg-gradient-to-br hover:from-white hover:to-animex-blue-50/50 dark:hover:from-slate-900 dark:hover:to-slate-800 transition-all border border-slate-200/80 dark:border-slate-800"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-animex-blue-600/10 text-animex-blue-600 dark:text-sky-400 flex items-center justify-center mb-4 group-hover:bg-animex-orange-500 group-hover:text-white transition-colors">
-                <Droplet className="w-6 h-6" />
+          {categories.map((cat) => {
+            const lower = cat.name.toLowerCase();
+            let iconElement = <Droplet className="w-6 h-6" />;
+            let badgeBg = 'bg-animex-blue-600/10 text-animex-blue-600 dark:text-sky-400 group-hover:bg-animex-orange-500';
+            let catSummary = 'High potency veterinary formulas optimized for high absorption and clinical efficacy.';
+
+            if (lower.includes('calcium')) {
+              iconElement = <ShieldCheck className="w-6 h-6" />;
+              badgeBg = 'bg-blue-500/10 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600';
+              catSummary = 'High potency oral calcium, minerals & vitamins for lactation & Milk Fever prevention.';
+            } else if (lower.includes('rumen') || lower.includes('gut')) {
+              iconElement = <Activity className="w-6 h-6" />;
+              badgeBg = 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 group-hover:bg-emerald-600';
+              catSummary = 'Bio-buffers, probiotics & herbs for bloat, gas, digestion & rumen motility.';
+            } else if (lower.includes('liver')) {
+              iconElement = <Stethoscope className="w-6 h-6" />;
+              badgeBg = 'bg-amber-500/10 text-amber-600 dark:text-amber-400 group-hover:bg-amber-500';
+              catSummary = 'Herbal hepatoprotectives for toxin detox, appetite boost & liver regeneration.';
+            } else if (lower.includes('mineral')) {
+              iconElement = <Sparkles className="w-6 h-6" />;
+              badgeBg = 'bg-purple-500/10 text-purple-600 dark:text-purple-400 group-hover:bg-purple-600';
+              catSummary = 'Organic amino-acid chelated Copper, Zinc, Cobalt & Shatavari for peak milk fat & SNF.';
+            } else if (lower.includes('uterine') || lower.includes('fertility')) {
+              iconElement = <Heart className="w-6 h-6" />;
+              badgeBg = 'bg-rose-500/10 text-rose-600 dark:text-rose-400 group-hover:bg-rose-600';
+              catSummary = 'Uterine cleansing herbal tonics for timely heat, fertility & post-calving care.';
+            } else if (lower.includes('poultry')) {
+              iconElement = <Award className="w-6 h-6" />;
+              badgeBg = 'bg-orange-500/10 text-orange-600 dark:text-orange-400 group-hover:bg-orange-600';
+              catSummary = 'High potency vitamins & minerals for broiler weight gain & layer eggshell strength.';
+            } else if (lower.includes('goat') || lower.includes('sheep')) {
+              iconElement = <Users className="w-6 h-6" />;
+              badgeBg = 'bg-teal-500/10 text-teal-600 dark:text-teal-400 group-hover:bg-teal-600';
+              catSummary = 'Specialized small ruminant formulas for rapid weight gain, stamina & immunity.';
+            } else if (lower.includes('herbal')) {
+              iconElement = <Leaf className="w-6 h-6" />;
+              badgeBg = 'bg-green-500/10 text-green-600 dark:text-green-400 group-hover:bg-green-600';
+              catSummary = '100% natural Ayurvedic formulations with zero chemical residue & high safety.';
+            }
+
+            return (
+              <div
+                key={cat.id}
+                onClick={() => {
+                  setSelectedCategory(cat.name);
+                  setActiveTab('products');
+                }}
+                className="glass-card p-6 rounded-3xl cursor-pointer group hover:bg-gradient-to-br hover:from-white hover:to-animex-blue-50/50 dark:hover:from-slate-900 dark:hover:to-slate-800 transition-all border border-slate-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 duration-300"
+              >
+                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-4 group-hover:text-white transition-all duration-300 shadow-sm ${badgeBg}`}>
+                  {iconElement}
+                </div>
+                <h3 className="text-base font-black text-slate-900 dark:text-white group-hover:text-animex-blue-600 dark:group-hover:text-sky-400 transition-colors">
+                  {cat.name}
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+                  {catSummary}
+                </p>
+                <div className="mt-4 flex items-center gap-1 text-xs font-bold text-animex-orange-500">
+                  <span>Explore Products</span>
+                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
               </div>
-              <h3 className="text-base font-black text-slate-900 dark:text-white group-hover:text-animex-blue-600 dark:group-hover:text-sky-400 transition-colors">
-                {cat.name}
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">
-                High potency veterinary formulas optimized for high absorption and quick clinical results.
-              </p>
-              <div className="mt-4 flex items-center gap-1 text-xs font-bold text-animex-orange-500">
-                <span>Explore Products</span>
-                <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
