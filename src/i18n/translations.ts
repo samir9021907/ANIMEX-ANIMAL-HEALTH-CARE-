@@ -1,10 +1,8 @@
-export type Language = 'en' | 'hi' | 'mr';
+export type Language = 'en' | 'hi' | 'mr' | 'gu' | 'pa' | 'kn' | 'ta' | 'te' | 'bn' | 'ml';
 
 export interface TranslationDictionary {
   [key: string]: {
-    en: string;
-    hi: string;
-    mr: string;
+    [lang in Language]?: string;
   };
 }
 

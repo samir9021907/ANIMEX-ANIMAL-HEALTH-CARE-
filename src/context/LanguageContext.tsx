@@ -11,25 +11,41 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
-    const saved = localStorage.getItem('animex_lang');
-    if (saved === 'hi' || saved === 'mr' || saved === 'en') {
-      return saved;
-    }
+    const saved = localStorage.getItem('animex_lang') as Language;
+    if (saved) return saved;
     return 'en';
   });
+
+  const triggerGoogleTranslate = (langCode: string) => {
+    const select = document.querySelector('.goog-te-combo') as HTMLSelectElement;
+    if (select) {
+      select.value = langCode;
+      select.dispatchEvent(new Event('change'));
+    }
+  };
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('animex_lang', lang);
+
+    triggerGoogleTranslate(lang);
+    setTimeout(() => triggerGoogleTranslate(lang), 400);
   };
+
+  useEffect(() => {
+    const saved = localStorage.getItem('animex_lang');
+    if (saved && saved !== 'en') {
+      setTimeout(() => triggerGoogleTranslate(saved), 800);
+    }
+  }, []);
 
   const t = (key: string): string => {
     if (translations[key] && translations[key][language]) {
-      return translations[key][language];
+      return translations[key][language]!;
     }
     // Fallback to English if translation key missing
     if (translations[key] && translations[key].en) {
-      return translations[key].en;
+      return translations[key].en!;
     }
     return key;
   };
