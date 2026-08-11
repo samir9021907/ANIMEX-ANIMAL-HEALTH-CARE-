@@ -63,7 +63,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       badge: "ISO 9001:2015 & GMP CERTIFIED",
       bgGradient: "from-animex-blue-900 via-animex-blue-800 to-slate-900",
       image: "https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&w=1200&q=80",
-      ctaPrimary: "Explore 500+ Products",
+      ctaPrimary: "Explore 50+ Products",
       ctaSecondary: "Find Nearby Dealer"
     },
     {
@@ -250,10 +250,10 @@ export const HomePage: React.FC<HomePageProps> = ({
           <div
             onClick={() => setActiveTab('products')}
             className="space-y-1 cursor-pointer group hover:scale-105 transition-all p-2 rounded-2xl"
-            title="Click to view all 500+ products"
+            title="Click to view all 50+ products"
           >
             <div className="text-3xl lg:text-4xl font-black text-animex-blue-600 dark:text-sky-400 font-sans group-hover:text-animex-orange-500 transition-colors">
-              500+
+              50+
             </div>
             <div className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider group-hover:text-slate-900 dark:group-hover:text-white">
               {t('formulationsCount')}
@@ -485,7 +485,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               onClick={() => setActiveTab('products')}
               className="bg-animex-orange-500 hover:bg-animex-orange-600 text-white font-extrabold px-8 py-3.5 rounded-2xl shadow-lg transition-all text-xs uppercase tracking-wider inline-flex items-center gap-2"
             >
-              <span>Explore All 500+ Products</span>
+              <span>Explore All 50+ Products</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

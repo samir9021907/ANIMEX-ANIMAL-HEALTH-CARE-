@@ -26,9 +26,9 @@ export const translations: TranslationDictionary = {
     mr: "सीएमएस अ‍ॅडमिन पॅनेल"
   },
   searchPlaceholder: {
-    en: "Search 500+ Products",
-    hi: "500+ उत्पाद खोजें",
-    mr: "५००+ उत्पादने शोधा"
+    en: "Search 50+ Products",
+    hi: "50+ उत्पाद खोजें",
+    mr: "५०+ उत्पादने शोधा"
   },
   whatsappInquiry: {
     en: "WhatsApp Inquiry",
@@ -107,9 +107,9 @@ export const translations: TranslationDictionary = {
     mr: "लाभार्थी शेतकरी"
   },
   formulationsCount: {
-    en: "GMP Formulations",
-    hi: "जीएमपी फॉर्मूलेशन",
-    mr: "जीएमपी फॉर्म्युलेशन्स"
+    en: "Veterinary Products",
+    hi: "पशु चिकित्सा उत्पाद",
+    mr: "व्हेटेनरी प्रॉडक्ट्स"
   },
   dealersNationwide: {
     en: "Dealers Nationwide",
