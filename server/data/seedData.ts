@@ -321,8 +321,8 @@ export const PRODUCTS: SeedProduct[] = [
 export const DEALERS: SeedDealer[] = [
   {
     id: 'dlr-1',
-    firmName: 'Kopargaon Vet & Pashu Seva Kendra',
-    contactName: 'Pratik Haridas Rahane',
+    firmName: 'ANIMEX Corporate Head Office & Main Depot',
+    contactName: 'Pratik Haridas Rahane (Director)',
     phone: '+91 93079 90811',
     email: 'animexanimalhealthcare@gmail.com',
     district: 'Ahmednagar',
@@ -332,13 +332,13 @@ export const DEALERS: SeedDealer[] = [
   },
   {
     id: 'dlr-2',
-    firmName: 'Mahalaxmi Dairy & Vet Store',
-    contactName: 'Karan Vijay Rahane',
-    phone: '+91 94221 67890',
-    email: 'mahalaxmi.vet@gmail.com',
-    district: 'Kolhapur',
+    firmName: 'ANIMEX Regional Corporate Sales & Distribution Hub',
+    contactName: 'Karan Vijay Rahane (Director)',
+    phone: '+91 87998 83858',
+    email: 'animexanimalhealthcare@gmail.com',
+    district: 'Ahmednagar',
     state: 'Maharashtra',
-    address: 'Gokul Shirgaon MIDC, Kolhapur - 416234',
+    address: '0208/RVN Havaldar Mala, Bahadurpur, Kopargaon Jawalke - 423605',
     status: 'APPROVED'
   }
 ];
