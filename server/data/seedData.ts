@@ -349,8 +349,8 @@ export const BLOGS: SeedBlog[] = [
     title: 'Post-Calving Milk Fever Prevention using CALCIMEX GEL ADVANCE',
     slug: 'prevent-milk-fever-calcimex-gel',
     excerpt: 'Hypocalcemia causes over 70% of post-partum complications in dairy cows. Learn how oral calcium gel administration restores blood ionic calcium levels rapidly.',
-    content: 'Within 24 hours of calving, a dairy cow produces several litres of colostrum, drawing massive calcium from blood plasma. CALCIMEX GEL ADVANCE delivers 43.5g of ionic calcium with Propylene Glycol to prevent downer cow syndrome...',
-    coverImage: 'https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?auto=format&fit=crop&w=800&q=80',
+    content: 'Within 24 hours of calving, a dairy cow produces several litres of colostrum, drawing massive calcium from blood plasma. CALCIMEX GEL ADVANCE delivers 43.5g of ionic calcium with Propylene Glycol, Vitamin D3 (160,000 IU), Niacinamide, and herbal extracts to prevent downer cow syndrome, retention of placenta (ROP), and metabolic weakness.',
+    coverImage: '/images/calcimex-gel.jpg',
     category: 'Calcium & Lactation',
     date: '2026-08-02'
   },
@@ -359,8 +359,8 @@ export const BLOGS: SeedBlog[] = [
     title: 'Maximizing Milk Fat & SNF Percentage with MILKYMEX-DS Chelated Minerals',
     slug: 'maximize-milk-fat-snf-milkymex-ds',
     excerpt: 'How organic chelated trace minerals (Copper, Zinc, Cobalt) and Shatavari galactagogues boost daily milk fat %, SNF, and peak lactation curve.',
-    content: 'Balanced nutrition is essential for peak daily milk fat and SNF yield. Standard inorganic mineral salts have low bio-absorption... MILKYMEX-DS contains amino-acid chelated minerals...',
-    coverImage: 'https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&w=800&q=80',
+    content: 'Balanced nutrition is essential for peak daily milk fat and SNF yield. Standard inorganic mineral salts have low bio-absorption in rumen pH. MILKYMEX-DS contains amino-acid chelated minerals, live yeast culture, Shatavari, and essential vitamins to maximize fat percentage and maintain peak lactation for 300+ days.',
+    coverImage: '/images/milkymex-ds.jpg',
     category: 'Nutrition & Milk Fat',
     date: '2026-08-04'
   },
@@ -369,10 +369,30 @@ export const BLOGS: SeedBlog[] = [
     title: 'Managing Bloating, Indigestion & Seasonal Anorexia with RUMEN MEX',
     slug: 'managing-bloating-indigestion-rumen-mex',
     excerpt: 'Rumen acidosis and sluggish microflora cause severe appetite reduction in high-yield dairy cows and buffaloes. Discover herbal bio-buffer therapy.',
-    content: 'Sudden feed changes and high-concentrate diet often lead to rumen bloat and anorexia. RUMEN MEX delivers active Lactobacillus strains, Ajwain, and Ginger extracts...',
-    coverImage: 'https://images.unsplash.com/photo-1596733430284-f7437764b1a9?auto=format&fit=crop&w=800&q=80',
+    content: 'Sudden feed changes and high-concentrate diet often lead to rumen bloat, gas, and anorexia. RUMEN MEX delivers active Lactobacillus probiotic strains, Ajwain, Ginger, and digestive mineral buffers to quickly stabilize rumen pH and restore appetite.',
+    coverImage: '/images/rumen-mex.jpg',
     category: 'Gut & Rumen Health',
     date: '2026-08-05'
+  },
+  {
+    id: 'blog-4',
+    title: 'Mastitis Prevention & Udder Health Management in High-Yield Dairy Cows',
+    slug: 'mastitis-prevention-udder-health',
+    excerpt: 'Subclinical mastitis accounts for over 60% of milk production losses in dairy farms. Learn essential hygienic practices, teat dipping, and herbal udder care.',
+    content: 'Mastitis is an inflammatory condition of the mammary gland caused by bacterial pathogens like Staphylococcus aureus and E. coli. Prevention requires clean milking routines, teat disinfection, and feeding vitamins A, E, Selenium & Chromium to boost udder tissue immunity. Early detection with California Mastitis Test (CMT) saves treatment costs.',
+    coverImage: '/images/animals/cow.png',
+    category: 'Udder Health & Immunity',
+    date: '2026-08-07'
+  },
+  {
+    id: 'blog-5',
+    title: 'Managing Summer Heat Stress & Milk Yield Drop in Cattle & Buffaloes',
+    slug: 'managing-summer-heat-stress-cattle',
+    excerpt: 'High ambient temperature and humidity reduce feed intake and drop milk fat SNF. Discover electrolyte balance, yeast culture, and shade management.',
+    content: 'Thermal heat stress impairs dry matter intake (DMI) and rumination activity in HF cows and Murrah buffaloes. Supplementing electrolyte salts, bio-buffers, bypass fat, and chelated trace minerals ensures steady milk yield even during 40°C+ summer months.',
+    coverImage: '/images/animals/buffalo.png',
+    category: 'Heat Stress & Summer Care',
+    date: '2026-08-09'
   }
 ];
 
