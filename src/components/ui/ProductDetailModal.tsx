@@ -12,7 +12,8 @@ import {
   Stethoscope,
   ChevronRight,
   PhoneCall,
-  ZoomIn
+  ZoomIn,
+  ArrowLeft
 } from 'lucide-react';
 
 interface ProductDetailModalProps {
@@ -53,13 +54,28 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200">
       <div className="bg-white dark:bg-slate-900 w-full max-w-4xl rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl relative my-8 max-h-[90vh] flex flex-col">
         
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
+        {/* Modal Top Header Bar with Back Button */}
+        <div className="flex items-center justify-between px-6 py-3 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60 shrink-0">
+          <button
+            onClick={onClose}
+            className="inline-flex items-center gap-1.5 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-animex-orange-500 font-extrabold text-xs px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:scale-105"
+          >
+            <ArrowLeft className="w-4 h-4 text-animex-orange-500" />
+            <span>← Back / मागे जा</span>
+          </button>
+
+          <span className="text-xs font-black text-slate-500 dark:text-slate-400 hidden sm:inline-block">
+            {product.category} Specifications & Direct Quote
+          </span>
+
+          <button
+            onClick={onClose}
+            className="p-2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"
+            title="Close Modal"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
 
         <div className="overflow-y-auto p-6 md:p-8 space-y-8">
           

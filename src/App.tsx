@@ -12,9 +12,11 @@ import { ProductDetailModal } from './components/ui/ProductDetailModal';
 import { LanguageProvider } from './context/LanguageContext';
 import { Product, Dealer, Enquiry } from './types';
 import { PRODUCTS, CATEGORIES, DISEASES, DEALERS, BLOGS, TESTIMONIALS, FAQS } from '../server/data/seedData';
+import { ArrowLeft } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('home');
+  const [activeTab, setActiveTabState] = useState<string>('home');
+  const [tabHistory, setTabHistory] = useState<string[]>([]);
   const [darkMode, setDarkMode] = useState<boolean>(false);
   
   // App Data States
@@ -33,6 +35,49 @@ export const App: React.FC = () => {
   // Modal States
   const [activeModalProduct, setActiveModalProduct] = useState<Product | null>(null);
   const [autoOpenDealerModal, setAutoOpenDealerModal] = useState<boolean>(false);
+
+  // Navigation tab switcher with history stack & browser pushState
+  const setActiveTab = (newTab: string) => {
+    if (newTab !== activeTab) {
+      setTabHistory(prev => [...prev, activeTab]);
+      setActiveTabState(newTab);
+      window.history.pushState({ tab: newTab }, '', `#/${newTab}`);
+    }
+  };
+
+  // Dedicated Back Button Handler
+  const handleGoBack = () => {
+    if (activeModalProduct) {
+      setActiveModalProduct(null);
+      return;
+    }
+    if (tabHistory.length > 0) {
+      const prevTab = tabHistory[tabHistory.length - 1];
+      setTabHistory(prev => prev.slice(0, prev.length - 1));
+      setActiveTabState(prevTab);
+      window.history.pushState({ tab: prevTab }, '', `#/${prevTab}`);
+    } else {
+      setActiveTabState('home');
+      window.history.pushState({ tab: 'home' }, '', '#/home');
+    }
+  };
+
+  // Listen to browser Back / Forward buttons (popstate)
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (activeModalProduct) {
+        setActiveModalProduct(null);
+        return;
+      }
+      if (e.state && e.state.tab) {
+        setActiveTabState(e.state.tab);
+      } else {
+        setActiveTabState('home');
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [activeModalProduct]);
 
   // Dark Mode Toggle Class Effect
   useEffect(() => {
@@ -86,16 +131,13 @@ export const App: React.FC = () => {
   };
 
   const handleRejectDealer = (id: string) => {
-    setDealersList(dealersList.map(d => d.id === id ? { ...d, status: 'REJECTED' } : d));
+    setDealersList(dealersList.filter(d => d.id !== id));
   };
 
   const handleSubmitEnquiry = (enqData: any) => {
     const newEnq: Enquiry = {
       id: `enq-${Date.now()}`,
-      name: enqData.name,
-      phone: enqData.phone,
-      email: enqData.email,
-      message: enqData.message,
+      ...enqData,
       status: 'PENDING',
       createdAt: new Date().toISOString().split('T')[0]
     };
@@ -104,9 +146,9 @@ export const App: React.FC = () => {
 
   return (
     <LanguageProvider>
-      <div className="min-h-screen flex flex-col font-sans transition-colors duration-300">
+      <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
         
-        {/* Sticky Brand Header */}
+        {/* Sticky Header */}
         <Header
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -114,8 +156,36 @@ export const App: React.FC = () => {
           setDarkMode={setDarkMode}
         />
 
-        {/* Main Content View Switcher */}
-        <main className="flex-grow">
+        {/* Global Breadcrumb & Back Navigation Strip */}
+        {activeTab !== 'home' && (
+          <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 sticky top-16 z-20 transition-all">
+            <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-between gap-4">
+              <button
+                onClick={handleGoBack}
+                className="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-animex-orange-500 font-black text-xs px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:scale-105"
+              >
+                <ArrowLeft className="w-4 h-4 text-animex-orange-500" />
+                <span>← Back / मागे जा</span>
+              </button>
+
+              <div className="text-[11px] font-extrabold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                <span 
+                  onClick={() => setActiveTab('home')}
+                  className="cursor-pointer hover:text-animex-blue-500 transition-colors"
+                >
+                  Home
+                </span>
+                <span>/</span>
+                <span className="capitalize text-animex-orange-500 font-black">
+                  {activeTab.replace('-', ' ')}
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Main Content Pages */}
+        <main className="flex-1">
           {activeTab === 'home' && (
             <HomePage
               products={productsList}
@@ -129,8 +199,8 @@ export const App: React.FC = () => {
               setSelectedDisease={setSelectedDisease}
               onOpenProductModal={(p) => setActiveModalProduct(p)}
               onOpenDealerRegistration={() => {
-                setAutoOpenDealerModal(true);
                 setActiveTab('dealer-locator');
+                setAutoOpenDealerModal(true);
               }}
             />
           )}
