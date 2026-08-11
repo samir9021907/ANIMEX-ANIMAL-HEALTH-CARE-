@@ -11,7 +11,8 @@ import {
   Droplet,
   Stethoscope,
   ChevronRight,
-  PhoneCall
+  PhoneCall,
+  ZoomIn
 } from 'lucide-react';
 
 interface ProductDetailModalProps {
@@ -25,6 +26,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
   const [inquiryPhone, setInquiryPhone] = useState('');
   const [inquiryMsg, setInquiryMsg] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [isImageFullOpen, setIsImageFullOpen] = useState(false);
 
   if (!product) return null;
 
@@ -65,15 +67,24 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
             
             {/* Left Image & Pack Selector */}
             <div className="md:col-span-5 space-y-4">
-              <div className="h-72 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 relative shadow-inner">
+              <div 
+                onClick={() => setIsImageFullOpen(true)}
+                className="h-72 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 relative shadow-inner cursor-pointer group"
+                title="Click to view full photo"
+              >
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <span className="absolute top-3 left-3 bg-animex-orange-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-md">
+                <span className="absolute top-3 left-3 bg-animex-orange-500 text-white text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-md z-10">
                   {product.category}
                 </span>
+
+                <div className="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1.5 text-white text-xs font-black backdrop-blur-[2px]">
+                  <ZoomIn className="w-6 h-6 animate-bounce" />
+                  <span>Click for Full View</span>
+                </div>
               </div>
 
               <div className="space-y-2">
@@ -220,6 +231,42 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({ product,
 
         </div>
       </div>
+
+      {/* Full Screen Image Lightbox Modal */}
+      {isImageFullOpen && (
+        <div 
+          onClick={() => setIsImageFullOpen(false)}
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-slate-950/95 backdrop-blur-xl p-4 sm:p-8 animate-in fade-in zoom-in-95 duration-200 cursor-zoom-out"
+        >
+          {/* Top Close Bar */}
+          <div className="absolute top-4 right-4 sm:top-6 sm:right-6 z-[110] flex items-center gap-3">
+            <button
+              onClick={(e) => { e.stopPropagation(); setIsImageFullOpen(false); }}
+              className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all shadow-xl hover:scale-110 border border-white/10 active:scale-95"
+              title="Close Full Image View"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+
+          <div 
+            onClick={(e) => e.stopPropagation()} 
+            className="max-w-5xl max-h-[85vh] w-full h-full flex flex-col items-center justify-center p-2 relative"
+          >
+            <img
+              src={product.image}
+              alt={product.title}
+              className="max-w-full max-h-[78vh] object-contain rounded-2xl shadow-2xl border border-white/10"
+            />
+            <div className="mt-4 flex items-center gap-3 bg-slate-900/90 border border-slate-700/80 px-5 py-2.5 rounded-full text-white text-xs sm:text-sm font-black shadow-2xl backdrop-blur-md">
+              <span className="bg-animex-orange-500 text-white text-[10px] sm:text-xs px-3 py-1 rounded-full uppercase tracking-wider">
+                {product.category}
+              </span>
+              <span>{product.title}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
